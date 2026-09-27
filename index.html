@@ -1,0 +1,150 @@
+```html
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PT. DZAKIY MAJU BERSAMA — Under Construction</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            black: '#030303',
+                            surface: '#050505',
+                            red: '#D91224',
+                            deepRed: '#500008'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+                        serif: ['Cinzel', 'Playfair Display', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #030303;
+            color: #E5E5E5;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Extremely subtle deep-red atmospheric background glow */
+        .ambient-glow {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: min(90vw, 650px);
+            height: min(90vw, 550px);
+            background: radial-gradient(circle, rgba(217, 18, 36, 0.12) 0%, rgba(80, 0, 8, 0.04) 50%, rgba(3, 3, 3, 0) 75%);
+            pointer-events: none;
+            z-index: 0;
+            filter: blur(60px);
+        }
+
+        /* Outline Typography Styling for "CONSTRUCTION" */
+        .text-outline {
+            color: transparent;
+            -webkit-text-stroke: 1.5px rgba(245, 245, 245, 0.85);
+        }
+
+        @media (max-width: 640px) {
+            .text-outline {
+                -webkit-text-stroke: 1px rgba(245, 245, 245, 0.85);
+            }
+        }
+
+        /* Smooth subtle entrance animation */
+        .fade-in-up {
+            animation: fadeInUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body class="relative min-h-screen flex flex-col justify-between items-center text-center px-4 sm:px-6 py-8 sm:py-12 select-none">
+
+    <!-- Atmospheric deep-red ambient background glow -->
+    <div class="ambient-glow"></div>
+
+    <!-- MAIN VERTICAL COMPOSITION -->
+    <main class="relative z-10 my-auto w-full max-w-3xl flex flex-col items-center justify-center fade-in-up">
+        
+        <!-- OFFICIAL LOGO DISPLAY -->
+        <div class="mb-6 sm:mb-8 flex items-center justify-center w-full min-h-[180px] sm:min-h-[220px]">
+            <img 
+                src="https://cdn.phototourl.com/member/2026-09-27-0c40ed72-bcff-40b2-a96e-aff4d59a3374.png" 
+                alt="PT. DZAKIY MAJU BERSAMA Official Logo" 
+                class="w-auto h-auto max-w-[190px] sm:max-w-[250px] md:max-w-[290px] max-h-[220px] sm:max-h-[280px] object-contain drop-shadow-2xl"
+            />
+        </div>
+
+        <!-- COMPANY IDENTIFIER & DESCRIPTOR -->
+        <h2 class="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-wider text-white uppercase mb-2">
+            PT. DZAKIY MAJU BERSAMA
+        </h2>
+
+        <p class="text-[11px] sm:text-xs md:text-sm font-semibold tracking-widest text-neutral-400 uppercase mb-10 sm:mb-14">
+            CONSULTANT PROJECT FINANCING &bull; TRADING &bull; MINING
+        </p>
+
+        <!-- MAIN EDITORIAL HEADLINE -->
+        <h1 class="font-serif font-black tracking-tight leading-none mb-8 sm:mb-10 text-center uppercase">
+            <span class="block text-4xl sm:text-6xl md:text-7xl lg:text-8xl text-neutral-100 mb-1 sm:mb-2">
+                UNDER
+            </span>
+            <span class="block text-4xl sm:text-6xl md:text-7xl lg:text-8xl text-outline">
+                CONSTRUCTION
+            </span>
+        </h1>
+
+        <!-- DESCRIPTION STATEMENT -->
+        <div class="max-w-xl text-neutral-300 text-xs sm:text-sm md:text-base font-light leading-relaxed mb-8 sm:mb-10 px-2">
+            <p class="mb-1">Kami sedang menyiapkan website resmi PT. Dzakiy Maju Bersama.</p>
+            <p>Informasi mengenai layanan dan aktivitas perusahaan akan segera hadir.</p>
+        </div>
+
+        <!-- COMING SOON STATUS PILL -->
+        <div class="inline-flex items-center space-x-2.5 px-4 sm:px-5 py-2 rounded-full bg-neutral-900/90 border border-neutral-800/80 text-[11px] sm:text-xs font-semibold tracking-widest text-neutral-300 uppercase shadow-lg">
+            <span class="relative flex h-2 w-2">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-red opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-red"></span>
+            </span>
+            <span>WEBSITE COMING SOON</span>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="relative z-10 pt-8 pb-2 text-[11px] sm:text-xs tracking-wider text-neutral-600 uppercase font-medium">
+        PT. DZAKIY MAJU BERSAMA
+    </footer>
+
+</body>
+</html>
+```
