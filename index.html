@@ -842,7 +842,7 @@
         </div>
     </footer>
 
-    <!-- Inquiry Modal with WhatsApp Integration -->
+    <!-- Inquiry Modal with Web3Forms Email Integration -->
     <div x-show="modalOpen" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-brand-black/90 backdrop-blur-md" style="display: none;">
         <div @click.away="modalOpen = false" class="bg-brand-dark border-2 border-brand-red max-w-2xl w-full p-8 relative shadow-2xl overflow-y-auto max-h-[90vh]">
             <button @click="modalOpen = false" class="absolute top-6 right-6 text-brand-muted hover:text-white transition-colors">
@@ -857,10 +857,16 @@
             <h3 class="font-bold text-2xl uppercase tracking-normal text-white mt-1 mb-2" x-text="t('modalTitle')"></h3>
             <p class="text-xs text-brand-muted mb-6" x-text="t('modalSubtitle')"></p>
 
-            <form @submit.prevent="submitToWhatsApp()" class="space-y-4 text-xs font-mono">
+            <!-- Web3Forms Form Integration (Sends directly to legal@dzakiymajubersama.com) -->
+            <form action="https://api.web3forms.com/submit" method="POST" @submit="formSubmitted = true" class="space-y-4 text-xs font-mono">
+                <!-- Web3Forms Access Key -->
+                <input type="hidden" name="access_key" value="529913f7-d5d4-4ab1-8d6e-e0cd29a0dc90">
+                <input type="hidden" name="subject" value="New Project/Transaction Inquiry from Dzakiy Website">
+                <input type="hidden" name="redirect" value="https://dzakiymajubersama.com">
+
                 <div>
                     <label class="block text-brand-light uppercase mb-1" x-text="t('fieldCategory')"></label>
-                    <select x-model="formCategory" class="w-full bg-brand-black border border-white/20 p-3 text-white focus:border-brand-red focus:outline-none">
+                    <select name="category" x-model="formCategory" class="w-full bg-brand-black border border-white/20 p-3 text-white focus:border-brand-red focus:outline-none">
                         <option value="Project Financing" x-text="t('optFinancing')"></option>
                         <option value="Commodity Trading" x-text="t('optCommodity')"></option>
                         <option value="Investor Partnership" x-text="t('optInvestor')"></option>
@@ -870,26 +876,26 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-brand-light uppercase mb-1" x-text="t('fieldName')"></label>
-                        <input type="text" x-model="formName" required placeholder="e.g. Budi Santoso" class="w-full bg-brand-black border border-white/20 p-3 text-white focus:border-brand-red focus:outline-none">
+                        <input type="text" name="name" x-model="formName" required placeholder="e.g. Budi Santoso" class="w-full bg-brand-black border border-white/20 p-3 text-white focus:border-brand-red focus:outline-none">
                     </div>
                     <div>
                         <label class="block text-brand-light uppercase mb-1" x-text="t('fieldCompany')"></label>
-                        <input type="text" x-model="formCompany" required placeholder="e.g. PT Capital Partners" class="w-full bg-brand-black border border-white/20 p-3 text-white focus:border-brand-red focus:outline-none">
+                        <input type="text" name="company" x-model="formCompany" required placeholder="e.g. PT Capital Partners" class="w-full bg-brand-black border border-white/20 p-3 text-white focus:border-brand-red focus:outline-none">
                     </div>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-brand-light uppercase mb-1" x-text="t('fieldEmail')"></label>
-                        <input type="email" x-model="formEmail" required placeholder="name@company.com" class="w-full bg-brand-black border border-white/20 p-3 text-white focus:border-brand-red focus:outline-none">
+                        <input type="email" name="email" x-model="formEmail" required placeholder="name@company.com" class="w-full bg-brand-black border border-white/20 p-3 text-white focus:border-brand-red focus:outline-none">
                     </div>
                     <div>
                         <label class="block text-brand-light uppercase mb-1" x-text="t('fieldPhone')"></label>
-                        <input type="tel" x-model="formPhone" required placeholder="+62 812 XXXX XXXX" class="w-full bg-brand-black border border-white/20 p-3 text-white focus:border-brand-red focus:outline-none">
+                        <input type="tel" name="phone" x-model="formPhone" required placeholder="+62 812 XXXX XXXX" class="w-full bg-brand-black border border-white/20 p-3 text-white focus:border-brand-red focus:outline-none">
                     </div>
                 </div>
                 <div>
                     <label class="block text-brand-light uppercase mb-1" x-text="t('fieldDetails')"></label>
-                    <textarea rows="4" x-model="formDetails" :placeholder="t('fieldDetailsHolder')" class="w-full bg-brand-black border border-white/20 p-3 text-white focus:border-brand-red focus:outline-none"></textarea>
+                    <textarea name="message" rows="4" x-model="formDetails" :placeholder="t('fieldDetailsHolder')" class="w-full bg-brand-black border border-white/20 p-3 text-white focus:border-brand-red focus:outline-none"></textarea>
                 </div>
                 <div class="pt-4 flex items-center justify-end gap-4">
                     <button type="button" @click="modalOpen = false" class="px-6 py-3 border border-white/20 text-white font-bold uppercase tracking-wider text-xs" x-text="t('btnCancel')"></button>
@@ -1026,7 +1032,7 @@
 
                 modalHeaderBadge: "INQUIRY TRANSAKSI & PROYEK",
                 modalTitle: "DISKUSIKAN PELUANG ANDA",
-                modalSubtitle: "Kirimkan spesifikasi proyek atau kebutuhan transaksi Anda untuk terhubung langsung via WhatsApp dengan tim manajemen kami.",
+                modalSubtitle: "Kirimkan spesifikasi proyek atau kebutuhan transaksi Anda untuk terhubung langsung via email dengan tim manajemen kami.",
                 fieldCategory: "Kategori Inquiry",
                 optFinancing: "Penasihat Pembiayaan Proyek",
                 optCommodity: "Perdagangan / Offtake Komoditas (Batu Bara, Pasir, Bauksit)",
@@ -1039,7 +1045,7 @@
                 fieldDetails: "Ringkasan / Detail Peluang",
                 fieldDetailsHolder: "Jelaskan secara singkat skala proyek, kebutuhan komoditas, atau struktur modal...",
                 btnCancel: "BATAL",
-                btnSubmit: "KIRIM VIA WHATSAPP"
+                btnSubmit: "KIRIM VIA EMAIL"
             },
             EN: {
                 introTagline: "CONNECTING CAPITAL TO OPPORTUNITY.",
@@ -1164,7 +1170,7 @@
 
                 modalHeaderBadge: "TRANSACTION & PROJECT INQUIRY",
                 modalTitle: "DISCUSS YOUR OPPORTUNITY",
-                modalSubtitle: "Submit your project specification or transaction requirements to connect instantly via WhatsApp with our management team.",
+                modalSubtitle: "Submit your project specification or transaction requirements to connect instantly via email with our management team.",
                 fieldCategory: "Inquiry Category",
                 optFinancing: "Project Financing Advisory",
                 optCommodity: "Commodity Trading / Offtake (Coal, Sand, Bauxite)",
@@ -1177,7 +1183,7 @@
                 fieldDetails: "Opportunity Summary / Details",
                 fieldDetailsHolder: "Briefly describe the project scale, commodity requirements, or capital structure...",
                 btnCancel: "CANCEL",
-                btnSubmit: "SEND VIA WHATSAPP"
+                btnSubmit: "SEND VIA EMAIL"
             }
         };
 
@@ -1200,14 +1206,6 @@
                 formEmail: '',
                 formPhone: '',
                 formDetails: '',
-
-                submitToWhatsApp() {
-                    const phoneNum = '628133132006';
-                    const text = `Halo PT. Dzakiy Maju Bersama,%0A%0ASaya ingin mengirimkan inquiry strategis:%0A- *Kategori:* ${encodeURIComponent(this.formCategory)}%0A- *Nama:* ${encodeURIComponent(this.formName)}%0A- *Perusahaan:* ${encodeURIComponent(this.formCompany)}%0A- *Email:* ${encodeURIComponent(this.formEmail)}%0A- *Telepon:* ${encodeURIComponent(this.formPhone)}%0A- *Detail Peluang:* ${encodeURIComponent(this.formDetails)}`;
-                    
-                    window.open(`https://wa.me/${phoneNum}?text=${text}`, '_blank');
-                    this.modalOpen = false;
-                },
 
                 t(key) {
                     return (i18n[this.lang] && i18n[this.lang][key]) ? i18n[this.lang][key] : (i18n['EN'][key] || '');
