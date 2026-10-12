@@ -1,150 +1,1338 @@
 
 <!DOCTYPE html>
-<html lang="id" class="dark">
+<html lang="id" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PT. DZAKIY MAJU BERSAMA — Under Construction</title>
+    <title>PT. DZAKIY MAJU BERSAMA — Strategic Business & Transaction Partner</title>
     
-    <!-- Tailwind CSS -->
+    <!-- Google Fonts: Plus Jakarta Sans & Cinzel -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
-            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
                         brand: {
-                            black: '#030303',
-                            surface: '#050505',
-                            red: '#D91224',
-                            deepRed: '#500008'
+                            black: '#080808',
+                            dark: '#161616',
+                            grey: '#222222',
+                            light: '#F2F2F0',
+                            red: '#D71920',
+                            redHover: '#B51218',
+                            muted: '#8E8E93'
                         }
                     },
                     fontFamily: {
-                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
-                        serif: ['Cinzel', 'Playfair Display', 'serif']
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        serif: ['Cinzel', 'Georgia', 'serif']
                     }
                 }
             }
         }
     </script>
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Alpine.js Plugins & Core -->
+    <script defer src="https://unpkg.com/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
         body {
-            background-color: #030303;
-            color: #E5E5E5;
+            background-color: #080808;
+            color: #F2F2F0;
             font-family: 'Plus Jakarta Sans', sans-serif;
-            min-height: 100vh;
             overflow-x: hidden;
+            letter-spacing: 0.01em;
         }
 
-        /* Extremely subtle deep-red atmospheric background glow */
-        .ambient-glow {
-            position: absolute;
-            top: 40%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: min(90vw, 650px);
-            height: min(90vw, 550px);
-            background: radial-gradient(circle, rgba(217, 18, 36, 0.12) 0%, rgba(80, 0, 8, 0.04) 50%, rgba(3, 3, 3, 0) 75%);
-            pointer-events: none;
-            z-index: 0;
-            filter: blur(60px);
+        .bg-grid-pattern {
+            background-size: 60px 60px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
         }
 
-        /* Outline Typography Styling for "CONSTRUCTION" */
-        .text-outline {
-            color: transparent;
-            -webkit-text-stroke: 1.5px rgba(245, 245, 245, 0.85);
-        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #080808; }
+        ::-webkit-scrollbar-thumb { background: #222222; }
+        ::-webkit-scrollbar-thumb:hover { background: #D71920; }
 
-        @media (max-width: 640px) {
-            .text-outline {
-                -webkit-text-stroke: 1px rgba(245, 245, 245, 0.85);
+        @media (min-width: 1024px) {
+            #custom-cursor {
+                pointer-events: none;
+                position: fixed;
+                top: 0; left: 0;
+                width: 10px; height: 10px;
+                background-color: #D71920;
+                border-radius: 50%;
+                z-index: 9999;
+                transform: translate3d(-50%, -50%, 0);
+                transition: transform 0.15s ease-out, opacity 0.2s ease, background-color 0.2s ease;
+            }
+            #custom-cursor-ring {
+                pointer-events: none;
+                position: fixed;
+                top: 0; left: 0;
+                width: 38px; height: 38px;
+                border: 1px solid rgba(215, 25, 32, 0.6);
+                border-radius: 50%;
+                z-index: 9998;
+                transform: translate3d(-50%, -50%, 0);
+                transition: transform 0.25s ease-out, border-color 0.2s ease, width 0.2s ease, height 0.2s ease;
+            }
+            body.hovering-cta #custom-cursor {
+                transform: translate3d(-50%, -50%, 0) scale(2.2);
+                background-color: #ffffff;
+            }
+            body.hovering-cta #custom-cursor-ring {
+                width: 54px; height: 54px;
+                border-color: #D71920;
             }
         }
 
-        /* Smooth subtle entrance animation */
-        .fade-in-up {
-            animation: fadeInUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        .hero-bg-zoom {
+            transform: scale(1.05);
+            transition: transform 3.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .hero-bg-zoom.loaded { transform: scale(1.00); }
+
+        .svg-line-draw {
+            stroke-dasharray: 600;
+            stroke-dashoffset: 600;
+            transition: stroke-dashoffset 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .svg-line-draw.active { stroke-dashoffset: 0; }
+
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-up.is-revealed {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(16px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .cap-img-slide {
+            transform: translateX(40px);
+            opacity: 0;
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease-out;
+        }
+        .cap-row-active .cap-img-slide {
+            transform: translateX(0);
+            opacity: 1 !important;
+        }
+        .cap-arrow-move { transition: transform 0.3s ease; }
+        .cap-row-active .cap-arrow-move { transform: translateX(8px); }
+
+        @keyframes dashTravel {
+            to { stroke-dashoffset: -100; }
+        }
+        .animate-dash-flow {
+            stroke-dasharray: 12 12;
+            animation: dashTravel 2s linear infinite;
         }
     </style>
 </head>
-<body class="relative min-h-screen flex flex-col justify-between items-center text-center px-4 sm:px-6 py-8 sm:py-12 select-none">
+<body x-data="appData()" x-init="init()" @mousemove="handleCursor($event)">
 
-    <!-- Atmospheric deep-red ambient background glow -->
-    <div class="ambient-glow"></div>
-
-    <!-- MAIN VERTICAL COMPOSITION -->
-    <main class="relative z-10 my-auto w-full max-w-3xl flex flex-col items-center justify-center fade-in-up">
+    <div id="brand-intro" 
+         x-show="introActive"
+         x-transition:leave="transition-opacity duration-700 ease-in-out"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         class="fixed inset-0 z-[99999] bg-brand-black flex flex-col items-center justify-center overflow-hidden">
         
-        <!-- OFFICIAL LOGO DISPLAY -->
-        <div class="mb-6 sm:mb-8 flex items-center justify-center w-full min-h-[180px] sm:min-h-[220px]">
-            <img 
-                src="https://cdn.phototourl.com/member/2026-09-27-0c40ed72-bcff-40b2-a96e-aff4d59a3374.png" 
-                alt="PT. DZAKIY MAJU BERSAMA Official Logo" 
-                class="w-auto h-auto max-w-[190px] sm:max-w-[250px] md:max-w-[290px] max-h-[220px] sm:max-h-[280px] object-contain drop-shadow-2xl"
-            />
+        <div class="relative flex flex-col items-center text-center px-6 max-w-xl">
+            <div id="intro-logo" class="w-32 h-32 md:w-40 md:h-40 mb-6 opacity-0 scale-90 transition-all duration-500 ease-out">
+                <img src="https://cdn.phototourl.com/member/2026-09-27-f998a1a6-e9c4-46c3-8a87-d45dd4ae1925.png" alt="Logo" class="w-full h-full object-contain filter drop-shadow-[0_4px_24px_rgba(215,25,32,0.6)]"/>
+            </div>
+            <div id="intro-name" class="opacity-0 translate-y-3 transition-all duration-500 ease-out mb-2">
+                <h2 class="font-serif font-bold text-lg sm:text-xl md:text-2xl tracking-[0.18em] uppercase text-white whitespace-nowrap">
+                    PT. <span class="text-brand-red">DZAKIY</span> MAJU BERSAMA
+                </h2>
+            </div>
+            <div id="intro-tagline" class="opacity-0 translate-y-2 transition-all duration-500 ease-out mb-5">
+                <p class="text-[10px] sm:text-xs font-mono tracking-[0.25em] uppercase text-brand-muted whitespace-nowrap" x-text="t('introTagline')"></p>
+            </div>
+            <div class="relative w-full h-[2px] flex justify-center items-center overflow-visible">
+                <div id="intro-red-line" class="h-[2px] bg-brand-red w-0 transition-all duration-500 ease-out shadow-[0_0_16px_#D71920]"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Cursor Canvas -->
+    <div id="custom-cursor" class="hidden lg:block"></div>
+    <div id="custom-cursor-ring" class="hidden lg:block"></div>
+
+    <header :class="isScrolled ? 'bg-brand-black/95 backdrop-blur-md border-b border-white/10 py-3.5' : 'bg-brand-black/80 backdrop-blur-sm py-4'" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-12 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-2 group flex-shrink-0 mr-1 sm:mr-3 lg:mr-8 min-w-0">
+                <div class="relative w-8 h-8 sm:w-11 sm:h-11 flex-shrink-0">
+                    <img src="https://cdn.phototourl.com/member/2026-09-27-f998a1a6-e9c4-46c3-8a87-d45dd4ae1925.png" alt="Logo" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300 drop-shadow-[0_2px_8px_rgba(215,25,32,0.4)]"/>
+                </div>
+                <div class="flex flex-col min-w-0">
+                    <span class="font-serif font-bold text-[10px] sm:text-sm md:text-base leading-snug tracking-wide text-white truncate">
+                        PT. <span class="text-brand-red">DZAKIY</span> MAJU BERSAMA
+                    </span>
+                    <span class="text-[6px] sm:text-[8.5px] uppercase tracking-[0.15em] sm:tracking-[0.2em] text-brand-muted font-mono truncate" x-text="t('subTagline')"></span>
+                </div>
+            </a>
+
+            <nav class="hidden xl:flex items-center gap-6 xl:gap-8">
+                <a href="#about" class="text-xs uppercase tracking-widest font-semibold text-brand-light/80 hover:text-brand-red transition-colors whitespace-nowrap" x-text="t('navWhoWeAre')"></a>
+                <a href="#how-we-connect" class="text-xs uppercase tracking-widest font-semibold text-brand-light/80 hover:text-brand-red transition-colors whitespace-nowrap" x-text="t('navConnectionLayer')"></a>
+                <a href="#capabilities" class="text-xs uppercase tracking-widest font-semibold text-brand-light/80 hover:text-brand-red transition-colors whitespace-nowrap" x-text="t('navCapabilities')"></a>
+                <a href="#ecosystem" class="text-xs uppercase tracking-widest font-semibold text-brand-light/80 hover:text-brand-red transition-colors whitespace-nowrap" x-text="t('navEcosystem')"></a>
+                <a href="#business-areas" class="text-xs uppercase tracking-widest font-semibold text-brand-light/80 hover:text-brand-red transition-colors whitespace-nowrap" x-text="t('navSectors')"></a>
+            </nav>
+
+            <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+                <div class="flex items-center bg-brand-dark border border-white/20 p-1 text-[11px] sm:text-xs font-mono font-bold flex-shrink-0">
+                    <button @click="lang = 'ID'" :class="lang === 'ID' ? 'bg-brand-red text-white shadow-sm' : 'text-brand-muted hover:text-white'" class="px-2 py-0.5 sm:py-1 transition-all duration-200 uppercase">ID</button>
+                    <span class="text-white/20 px-0.5">|</span>
+                    <button @click="lang = 'EN'" :class="lang === 'EN' ? 'bg-brand-red text-white shadow-sm' : 'text-brand-muted hover:text-white'" class="px-2 py-0.5 sm:py-1 transition-all duration-200 uppercase">EN</button>
+                </div>
+                <div class="hidden lg:flex items-center">
+                    <button @click="modalOpen = true" @mouseenter="hoverCta(true)" @mouseleave="hoverCta(false)" class="group relative inline-flex items-center justify-center px-5 py-2.5 sm:px-6 sm:py-3 text-xs uppercase tracking-wider font-bold text-white bg-brand-red hover:bg-brand-redHover transition-all duration-300 overflow-hidden whitespace-nowrap shadow-lg hover:shadow-brand-red/30">
+                        <span class="relative z-10 flex items-center gap-2">
+                            <span x-text="t('ctaDiscuss')"></span>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300"></i>
+                        </span>
+                    </button>
+                </div>
+                <button @click="mobileMenuOpen = !mobileMenuOpen" class="xl:hidden bg-brand-dark text-white p-2 border border-brand-red/60 rounded focus:outline-none flex items-center justify-center shadow-md active:bg-brand-red/20 flex-shrink-0">
+                    <i :data-lucide="mobileMenuOpen ? 'x' : 'menu'" class="w-5 h-5 text-brand-red"></i>
+                </button>
+            </div>
         </div>
 
-        <!-- COMPANY IDENTIFIER & DESCRIPTOR -->
-        <h2 class="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-wider text-white uppercase mb-2">
-            PT. DZAKIY MAJU BERSAMA
-        </h2>
-
-        <p class="text-[11px] sm:text-xs md:text-sm font-semibold tracking-widest text-neutral-400 uppercase mb-10 sm:mb-14">
-            CONSULTANT PROJECT FINANCING &bull; TRADING &bull; MINING
-        </p>
-
-        <!-- MAIN EDITORIAL HEADLINE -->
-        <h1 class="font-serif font-black tracking-tight leading-none mb-8 sm:mb-10 text-center uppercase">
-            <span class="block text-4xl sm:text-6xl md:text-7xl lg:text-8xl text-neutral-100 mb-1 sm:mb-2">
-                UNDER
-            </span>
-            <span class="block text-4xl sm:text-6xl md:text-7xl lg:text-8xl text-outline">
-                CONSTRUCTION
-            </span>
-        </h1>
-
-        <!-- DESCRIPTION STATEMENT -->
-        <div class="max-w-xl text-neutral-300 text-xs sm:text-sm md:text-base font-light leading-relaxed mb-8 sm:mb-10 px-2">
-            <p class="mb-1">Kami sedang menyiapkan website resmi PT. Dzakiy Maju Bersama.</p>
-            <p>Informasi mengenai layanan dan aktivitas perusahaan akan segera hadir.</p>
+        <!-- Mobile Menu Drawer -->
+        <div x-show="mobileMenuOpen" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 -translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-4" class="xl:hidden bg-brand-dark border-b border-brand-red/60 px-6 py-8 fixed inset-x-0 top-[72px] z-40 flex flex-col gap-6 shadow-2xl" style="display: none;">
+            <a @click="mobileMenuOpen = false" href="#about" class="text-sm uppercase tracking-widest font-semibold text-brand-light hover:text-brand-red" x-text="t('navWhoWeAre')"></a>
+            <a @click="mobileMenuOpen = false" href="#how-we-connect" class="text-sm uppercase tracking-widest font-semibold text-brand-light hover:text-brand-red" x-text="t('navConnectionLayer')"></a>
+            <a @click="mobileMenuOpen = false" href="#capabilities" class="text-sm uppercase tracking-widest font-semibold text-brand-light hover:text-brand-red" x-text="t('navCapabilities')"></a>
+            <a @click="mobileMenuOpen = false" href="#ecosystem" class="text-sm uppercase tracking-widest font-semibold text-brand-light hover:text-brand-red" x-text="t('navEcosystem')"></a>
+            <a @click="mobileMenuOpen = false" href="#business-areas" class="text-sm uppercase tracking-widest font-semibold text-brand-light hover:text-brand-red" x-text="t('navSectors')"></a>
+            <div class="pt-4 border-t border-white/10 flex items-center justify-between">
+                <span class="text-xs uppercase font-mono text-brand-muted">Language / Bahasa:</span>
+                <div class="flex items-center bg-brand-black border border-white/20 p-1 text-xs font-mono font-bold">
+                    <button @click="lang = 'ID'" :class="lang === 'ID' ? 'bg-brand-red text-white' : 'text-brand-muted'" class="px-3 py-1 uppercase">ID</button>
+                    <button @click="lang = 'EN'" :class="lang === 'EN' ? 'bg-brand-red text-white' : 'text-brand-muted'" class="px-3 py-1 uppercase">EN</button>
+                </div>
+            </div>
+            <div>
+                <button @click="mobileMenuOpen = false; modalOpen = true" class="w-full py-3 bg-brand-red text-white font-bold uppercase tracking-wider text-center text-sm flex items-center justify-center gap-2 shadow-lg">
+                    <span x-text="t('ctaDiscuss')"></span> <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </button>
+            </div>
         </div>
+    </header>
 
-        <!-- COMING SOON STATUS PILL -->
-        <div class="inline-flex items-center space-x-2.5 px-4 sm:px-5 py-2 rounded-full bg-neutral-900/90 border border-neutral-800/80 text-[11px] sm:text-xs font-semibold tracking-widest text-neutral-300 uppercase shadow-lg">
-            <span class="relative flex h-2 w-2">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-red opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-red"></span>
-            </span>
-            <span>WEBSITE COMING SOON</span>
+    <section class="relative min-h-screen flex items-center pt-24 pb-16 overflow-hidden bg-brand-black bg-grid-pattern">
+        <div :class="loaded ? 'opacity-0 pointer-events-none' : 'opacity-100'" class="fixed inset-0 bg-brand-black z-50 transition-opacity duration-700"></div>
+        <div class="absolute inset-0 z-0 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?q=80&w=2000&auto=format&fit=crop" alt="Background" :class="loaded ? 'loaded' : ''" class="hero-bg-zoom w-full h-full object-cover object-center opacity-30 filter grayscale contrast-125">
+            <div class="absolute inset-0 bg-gradient-to-t from-brand-black via-brand-black/70 to-brand-black/40"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-brand-black via-brand-black/80 to-transparent"></div>
         </div>
+        <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 w-full py-12">
+            <div class="w-full max-w-xs mb-8 overflow-hidden">
+                <div class="h-[2px] bg-brand-red transition-all duration-1000 ease-out" :class="loaded ? 'w-28' : 'w-0'"></div>
+            </div>
+            <div class="space-y-2 mb-8">
+                <div class="overflow-hidden">
+                    <h1 :class="loaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'" class="font-bold text-3xl sm:text-5xl md:text-6xl lg:text-7xl uppercase tracking-normal text-white leading-tight transition-all duration-700 ease-out delay-200" x-text="t('heroHeadline1')"></h1>
+                </div>
+                <div class="overflow-hidden">
+                    <h1 :class="loaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'" class="font-bold text-3xl sm:text-5xl md:text-6xl lg:text-7xl uppercase tracking-normal text-white leading-tight transition-all duration-700 ease-out delay-400">
+                        <span x-text="t('heroHeadline2')"></span><span class="text-brand-red">.</span>
+                    </h1>
+                </div>
+            </div>
+            <div :class="loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'" class="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm font-mono tracking-widest uppercase text-brand-muted mb-12 transition-all duration-700 ease-out delay-600">
+                <span class="text-brand-light font-semibold" x-text="t('heroTag1')"></span>
+                <span class="text-brand-red">•</span>
+                <span class="text-brand-light font-semibold" x-text="t('heroTag2')"></span>
+                <span class="text-brand-red">•</span>
+                <span class="text-brand-light font-semibold" x-text="t('heroTag3')"></span>
+                <span class="text-brand-red">•</span>
+                <span class="text-brand-light font-semibold" x-text="t('heroTag4')"></span>
+            </div>
+            <div :class="loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'" class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 sm:gap-6 transition-all duration-700 ease-out delay-800">
+                <a href="#about" @mouseenter="hoverCta(true)" @mouseleave="hoverCta(false)" class="group px-8 py-4 bg-brand-red hover:bg-brand-redHover text-white font-bold uppercase tracking-wider text-xs sm:text-sm inline-flex items-center justify-center gap-3 transition-all duration-300 shadow-xl hover:shadow-brand-red/40">
+                    <span x-text="t('heroExploreBtn')"></span>
+                    <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300"></i>
+                </a>
+                <button @click="modalOpen = true" @mouseenter="hoverCta(true)" @mouseleave="hoverCta(false)" class="px-8 py-4 border border-white/20 hover:border-brand-red text-white hover:text-brand-red font-bold uppercase tracking-wider text-xs sm:text-sm inline-flex items-center justify-center gap-3 transition-all duration-300 backdrop-blur-sm">
+                    <span x-text="t('ctaDiscuss')"></span>
+                    <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                </button>
+            </div>
+            <div class="mt-20 pt-8 border-t border-white/10 flex flex-col md:flex-row md:items-center justify-between gap-4 text-xs font-mono text-brand-muted">
+                <div class="flex items-center gap-3">
+                    <span class="w-2 h-2 rounded-full bg-brand-red animate-ping"></span>
+                    <span class="uppercase tracking-widest text-brand-light" x-text="t('heroSubLeft')"></span>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    </main>
+    <section id="about" class="relative py-28 bg-brand-light text-brand-black border-t border-white/10 overflow-hidden">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl px-6 lg:px-12 pointer-events-none">
+            <div class="w-[2px] h-12 bg-gradient-to-b from-brand-red to-transparent mx-auto"></div>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+                <div class="lg:col-span-7 reveal-up">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="h-[2px] w-8 bg-brand-red"></span>
+                        <span class="text-xs sm:text-sm uppercase tracking-widest text-brand-red font-bold" x-text="t('sec2Sub')"></span>
+                    </div>
+                    <h2 class="font-bold text-3xl sm:text-4xl md:text-5xl lg:text-5xl uppercase tracking-normal text-brand-black leading-snug mb-8">
+                        <span x-text="t('sec2Title1')"></span><br>
+                        <span x-text="t('sec2Title2')"></span><br>
+                        <span class="text-brand-red" x-text="t('sec2Title3')"></span>
+                    </h2>
+                    <div class="space-y-4 text-brand-black/80 font-normal leading-relaxed text-sm sm:text-base max-w-2xl mb-8">
+                        <p x-html="t('sec2P1')"></p>
+                        <p x-text="t('sec2P2')"></p>
+                    </div>
+                </div>
+                <div class="lg:col-span-5 reveal-up">
+                    <div class="relative border-2 border-brand-black/10 p-2 bg-white shadow-2xl">
+                        <div class="relative bg-brand-dark flex items-center justify-center overflow-hidden">
+                            <img src="https://cdn.phototourl.com/member/2026-10-08-4d74e40d-3fde-4e25-8bb5-456d3a9a881a.jpg" alt="Commodity & Resources" class="w-full h-auto object-contain filter contrast-125 saturate-110 hover:scale-105 transition-transform duration-700"/>
+                        </div>
+                        <div class="pt-6 pb-2 text-left border-t border-brand-black/15">
+                            <span class="bg-brand-red text-white text-[9px] font-bold px-2.5 py-1 tracking-widest uppercase inline-block mb-2">SUMBER DAYA & KOMODITAS</span>
+                            <p class="font-mono text-xs font-bold text-brand-black tracking-wide uppercase">BATU BARA, PASIR, BAUKSIT & PERDAGANGAN KOMODITAS BESAR LAINNYA</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <!-- FOOTER -->
-    <footer class="relative z-10 pt-8 pb-2 text-[11px] sm:text-xs tracking-wider text-neutral-600 uppercase font-medium">
-        PT. DZAKIY MAJU BERSAMA
+    <section id="how-we-connect" class="relative py-28 bg-[#050505] text-[#F2F2F0] overflow-hidden border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
+            <!-- TOP LABEL WITH THIN RED LINE -->
+            <div class="flex items-center gap-4 mb-12">
+                <span class="font-bold text-xl sm:text-2xl tracking-widest text-[#D71920]">03</span>
+                <span class="text-xs uppercase tracking-[0.25em] font-mono text-[#A0A0A0]">PROJECT FINANCING</span>
+                <div class="h-[1px] bg-[#D71920] w-24 sm:w-48 ml-2"></div>
+            </div>
+
+            <!-- MAIN HEADLINE -->
+            <div class="mb-16 max-w-4xl">
+                <h2 class="font-bold text-3xl sm:text-5xl md:text-6xl tracking-tight text-white uppercase leading-[1.1]">
+                    DARI KEBUTUHAN PROYEK<br>MENUJU PELUANG TERSTRUKTUR.
+                </h2>
+            </div>
+
+            <!-- SERVICE STRUCTURE -->
+            <div class="space-y-6 pt-4 border-t border-[#262626] mb-20">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-start py-6 border-b border-[#262626]">
+                    <div class="md:col-span-3 flex items-center gap-3">
+                        <span class="font-bold text-3xl text-[#D71920]">01</span>
+                        <div class="h-8 w-[2px] bg-[#D71920]"></div>
+                        <h3 class="font-bold text-sm tracking-widest text-white uppercase">ADVISORY</h3>
+                    </div>
+                    <div class="md:col-span-9">
+                        <p class="text-sm text-[#A0A0A0] leading-relaxed">Memahami kebutuhan proyek dan capital.</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-start py-6 border-b border-[#262626]">
+                    <div class="md:col-span-3 flex items-center gap-3">
+                        <span class="font-bold text-3xl text-[#D71920]">02</span>
+                        <div class="h-8 w-[2px] bg-[#D71920]"></div>
+                        <h3 class="font-bold text-sm tracking-widest text-white uppercase">CONNECTION</h3>
+                    </div>
+                    <div class="md:col-span-9">
+                        <p class="text-sm text-[#A0A0A0] leading-relaxed">Mengidentifikasi dan menghubungkan counterpart yang relevan.</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-start py-6 border-b border-[#262626]">
+                    <div class="md:col-span-3 flex items-center gap-3">
+                        <span class="font-bold text-3xl text-[#D71920]">03</span>
+                        <div class="h-8 w-[2px] bg-[#D71920]"></div>
+                        <h3 class="font-bold text-sm tracking-widest text-white uppercase">ARRANGEMENT</h3>
+                    </div>
+                    <div class="md:col-span-9">
+                        <p class="text-sm text-[#A0A0A0] leading-relaxed">Mengkoordinasikan pihak dan framework transaksi.</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-start py-6 border-b border-[#262626]">
+                    <div class="md:col-span-3 flex items-center gap-3">
+                        <span class="font-bold text-3xl text-[#D71920]">04</span>
+                        <div class="h-8 w-[2px] bg-[#D71920]"></div>
+                        <h3 class="font-bold text-sm tracking-widest text-white uppercase">TRANSACTION SUPPORT</h3>
+                    </div>
+                    <div class="md:col-span-9">
+                        <p class="text-sm text-[#A0A0A0] leading-relaxed">Mendukung komunikasi dan proses menuju eksekusi.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PROJECT FINANCING DIAGRAM -->
+            <div class="p-8 sm:p-12 bg-[#0B0B0B] border border-[#262626] relative space-y-6 mb-20 max-w-3xl mx-auto">
+                <div class="absolute top-0 left-0 w-1.5 h-full bg-[#D71920]"></div>
+                
+                <div class="text-center mb-6">
+                    <span class="text-[10px] font-mono tracking-widest uppercase text-[#A0A0A0]">TRANSACTION RELATIONSHIP ARCHITECTURE</span>
+                </div>
+
+                <div class="flex flex-col items-center space-y-4 w-full text-center font-mono text-xs">
+                    <div class="w-full max-w-md py-3.5 px-6 border border-white/20 bg-[#050505] text-white uppercase font-bold tracking-widest">
+                        PROJECT OWNER
+                    </div>
+
+                    <div class="flex flex-col items-center">
+                        <div class="w-[1px] h-6 bg-[#D71920]"></div>
+                        <div class="w-0 h-0 border-l-[4px] border-l-transparent border-r-[4px] border-r-transparent border-t-[6px] border-t-[#D71920]"></div>
+                    </div>
+
+                    <div class="w-full max-w-lg py-5 px-6 border-2 border-[#D71920] bg-[#050505] shadow-[0_0_25px_rgba(215,25,32,0.25)]">
+                        <span class="text-[9px] text-[#D71920] tracking-[0.2em] uppercase block mb-1 font-bold">CONNECTING LAYER</span>
+                        <span class="font-serif font-bold text-sm sm:text-base text-white uppercase tracking-wider">PT. DZAKIY MAJU BERSAMA</span>
+                    </div>
+
+                    <div class="flex flex-col items-center">
+                        <div class="w-[1px] h-6 bg-[#D71920]"></div>
+                        <div class="w-0 h-0 border-l-[4px] border-l-transparent border-r-[4px] border-r-transparent border-t-[6px] border-t-[#D71920]"></div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full">
+                        <div class="py-3.5 px-3 border border-white/20 bg-[#050505] text-[11px] font-bold uppercase text-white flex items-center justify-center tracking-wider">
+                            CAPITAL PROVIDER
+                        </div>
+                        <div class="py-3.5 px-3 border border-white/20 bg-[#050505] text-[11px] font-bold uppercase text-white flex items-center justify-center tracking-wider">
+                            INVESTOR
+                        </div>
+                        <div class="py-3.5 px-3 border border-white/20 bg-[#050505] text-[11px] font-bold uppercase text-white flex items-center justify-center tracking-wider">
+                            STRATEGIC PARTNER
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- QUOTE -->
+            <div class="max-w-3xl mx-auto pt-6 pb-12 relative text-center">
+                <span class="text-7xl text-[#D71920] font-serif absolute -top-6 left-1/2 -translate-x-1/2 opacity-30 select-none">“</span>
+                <blockquote class="relative z-10 px-4">
+                    <p class="font-serif italic text-lg sm:text-2xl text-white leading-relaxed">“Kami tidak sekadar mempertemukan pihak. Kami menciptakan konteks agar pihak yang tepat dapat duduk di meja yang sama.”</p>
+                </blockquote>
+            </div>
+
+            <!-- Bottom Divider -->
+            <div class="mt-12 pt-6 border-t border-[#262626]"></div>
+        </div>
+    </section>
+
+    <section id="capabilities" class="py-28 bg-brand-black text-brand-light border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="mb-16 reveal-up">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="h-[2px] w-8 bg-brand-red"></span>
+                    <span class="text-xs sm:text-sm uppercase tracking-widest text-brand-red font-bold" x-text="t('sec4Sub')"></span>
+                </div>
+                <h2 class="font-bold text-3xl sm:text-4xl md:text-5xl lg:text-5xl uppercase tracking-normal text-white leading-snug">
+                    <span x-text="t('sec4Title1')"></span><span class="text-brand-red">.</span><br>
+                    <span x-text="t('sec4Title2')"></span><span class="text-brand-red">.</span>
+                </h2>
+            </div>
+
+            <div class="space-y-4 reveal-up">
+                <div @click="activeCapability = 0" @mouseenter="activeCapability = 0" :class="activeCapability === 0 ? 'border-brand-red bg-brand-dark shadow-xl cap-row-active' : 'border-white/10 bg-brand-black hover:border-white/30'" class="border p-8 transition-all duration-300 cursor-pointer group relative overflow-hidden">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
+                        <div class="flex items-start md:items-center gap-6">
+                            <span class="font-extrabold text-3xl md:text-4xl text-brand-red transition-transform duration-300 group-hover:scale-105">01</span>
+                            <div>
+                                <span class="text-[10px] font-mono text-brand-muted uppercase tracking-widest" x-text="t('cap1Label')"></span>
+                                <h3 class="font-bold text-lg md:text-xl uppercase tracking-wide text-white" x-text="t('cap1Title')"></h3>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <i data-lucide="chevron-right" class="w-6 h-6 text-brand-red cap-arrow-move"></i>
+                        </div>
+                    </div>
+                    <div x-show="activeCapability === 0" x-collapse class="mt-8 pt-8 border-t border-white/10 grid grid-cols-1 lg:grid-cols-12 gap-8">
+                        <div class="lg:col-span-7 space-y-4 text-sm text-brand-muted leading-relaxed">
+                            <p class="text-white font-medium text-base" x-text="t('cap1P1')"></p>
+                            <p x-text="t('cap1P2')"></p>
+                            <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 font-mono text-xs text-white">
+                                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-brand-red"></span> <span x-text="t('cap1L1')"></span></li>
+                                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-brand-red"></span> <span x-text="t('cap1L2')"></span></li>
+                                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-brand-red"></span> <span x-text="t('cap1L3')"></span></li>
+                                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-brand-red"></span> <span x-text="t('cap1L4')"></span></li>
+                            </ul>
+                        </div>
+                        <div class="lg:col-span-5 overflow-hidden">
+                            <img src="https://cdn.phototourl.com/member/2026-10-09-4e9260b5-fb99-4f56-b6cd-0ac61b08173c.jpg" alt="Advisory" class="w-full h-48 sm:h-56 object-cover filter contrast-125 border-l-2 border-brand-red cap-img-slide"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div @click="activeCapability = 1" @mouseenter="activeCapability = 1" :class="activeCapability === 1 ? 'border-brand-red bg-brand-dark shadow-xl cap-row-active' : 'border-white/10 bg-brand-black hover:border-white/30'" class="border p-8 transition-all duration-300 cursor-pointer group relative overflow-hidden">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
+                        <div class="flex items-start md:items-center gap-6">
+                            <span class="font-extrabold text-3xl md:text-4xl text-brand-red transition-transform duration-300 group-hover:scale-105">02</span>
+                            <div>
+                                <span class="text-[10px] font-mono text-brand-muted uppercase tracking-widest" x-text="t('cap2Label')"></span>
+                                <h3 class="font-bold text-lg md:text-xl uppercase tracking-wide text-white" x-text="t('cap2Title')"></h3>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <i data-lucide="chevron-right" class="w-6 h-6 text-brand-red cap-arrow-move"></i>
+                        </div>
+                    </div>
+                    <div x-show="activeCapability === 1" x-collapse class="mt-8 pt-8 border-t border-white/10 grid grid-cols-1 lg:grid-cols-12 gap-8">
+                        <div class="lg:col-span-7 space-y-4 text-sm text-brand-muted leading-relaxed">
+                            <p class="text-white font-medium text-base" x-text="t('cap2P1')"></p>
+                            <p x-text="t('cap2P2')"></p>
+                            <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 font-mono text-xs text-white">
+                                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-brand-red"></span> <span x-text="t('cap2L1')"></span></li>
+                                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-brand-red"></span> <span x-text="t('cap2L2')"></span></li>
+                                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-brand-red"></span> <span x-text="t('cap2L3')"></span></li>
+                                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-brand-red"></span> <span x-text="t('cap2L4')"></span></li>
+                            </ul>
+                        </div>
+                        <div class="lg:col-span-5 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?q=80&w=1000&auto=format&fit=crop" alt="Transaction" class="w-full h-48 sm:h-56 object-cover filter grayscale contrast-125 border-l-2 border-brand-red cap-img-slide"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div @click="activeCapability = 2" @mouseenter="activeCapability = 2" :class="activeCapability === 2 ? 'border-brand-red bg-brand-dark shadow-xl cap-row-active' : 'border-white/10 bg-brand-black hover:border-white/30'" class="border p-8 transition-all duration-300 cursor-pointer group relative overflow-hidden">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
+                        <div class="flex items-start md:items-center gap-6">
+                            <span class="font-extrabold text-3xl md:text-4xl text-brand-red transition-transform duration-300 group-hover:scale-105">03</span>
+                            <div>
+                                <span class="text-[10px] font-mono text-brand-muted uppercase tracking-widest" x-text="t('cap3Label')"></span>
+                                <h3 class="font-bold text-lg md:text-xl uppercase tracking-wide text-white" x-text="t('cap3Title')"></h3>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <i data-lucide="chevron-right" class="w-6 h-6 text-brand-red cap-arrow-move"></i>
+                        </div>
+                    </div>
+                    <div x-show="activeCapability === 2" x-collapse class="mt-8 pt-8 border-t border-white/10 grid grid-cols-1 lg:grid-cols-12 gap-8">
+                        <div class="lg:col-span-7 space-y-4 text-sm text-brand-muted leading-relaxed">
+                            <p class="text-white font-medium text-base" x-text="t('cap3P1')"></p>
+                            <p x-text="t('cap3P2')"></p>
+                            <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 font-mono text-xs text-white">
+                                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-brand-red"></span> <span x-text="t('cap3L1')"></span></li>
+                                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-brand-red"></span> <span x-text="t('cap3L2')"></span></li>
+                                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-brand-red"></span> <span x-text="t('cap3L3')"></span></li>
+                                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-brand-red"></span> <span x-text="t('cap3L4')"></span></li>
+                            </ul>
+                        </div>
+                        <div class="lg:col-span-5 overflow-hidden">
+                            <img src="https://cdn.phototourl.com/member/2026-09-27-a1e41ee5-9154-4454-b5f6-b72febdaac97.png" alt="Resources" class="w-full h-48 sm:h-56 object-cover filter contrast-125 border-l-2 border-brand-red cap-img-slide"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="ecosystem" class="py-28 bg-brand-dark text-brand-light border-t border-white/10 bg-grid-pattern relative overflow-hidden">
+        <div class="hidden xl:block absolute top-1/2 left-0 right-0 h-4 -translate-y-1/2 z-0">
+            <svg class="w-full h-4" preserveAspectRatio="none" viewBox="0 0 1000 10">
+                <line x1="0" y1="5" x2="1000" y2="5" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
+                <line x1="0" y1="5" x2="1000" y2="5" stroke="#D71920" stroke-width="3" class="animate-dash-flow"/>
+            </svg>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
+            <div class="mb-16 reveal-up">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="h-[2px] w-8 bg-brand-red"></span>
+                    <span class="text-xs sm:text-sm uppercase tracking-widest text-brand-red font-bold" x-text="t('sec5Sub')"></span>
+                </div>
+                <h2 class="font-bold text-3xl sm:text-4xl md:text-5xl lg:text-5xl uppercase tracking-normal text-white leading-snug">
+                    <span x-text="t('sec5Title1')"></span><br>
+                    <span x-text="t('sec5Title2')"></span> <span class="text-brand-red" x-text="t('sec5Title3')"></span>
+                </h2>
+            </div>
+
+            <!-- Ecosystem 5-Column Horizontal Grid -->
+            <div id="eco-nodes-container" class="grid grid-cols-1 xl:grid-cols-5 gap-6 items-stretch">
+                <!-- Node 01 -->
+                <div @click="activeEcoStep = 1" @mouseenter="activeEcoStep = 1" :class="activeEcoStep === 1 ? 'border-brand-red bg-brand-black shadow-lg' : 'border-white/10 bg-brand-black/80'" class="p-6 border transition-all duration-300 cursor-pointer relative group reveal-up flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-brand-red font-bold text-xs">01</span>
+                            <i data-lucide="coins" class="w-4 h-4 text-brand-muted"></i>
+                        </div>
+                        <h3 class="font-bold text-base uppercase text-white mb-2" x-text="t('ecoStep1Title')"></h3>
+                        <p class="text-xs text-brand-muted" x-text="t('ecoStep1Desc')"></p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-white/10 text-[10px] font-mono text-brand-muted" x-text="t('ecoStep1Foot')"></div>
+                </div>
+
+                <!-- Node 02 -->
+                <div @click="activeEcoStep = 2" @mouseenter="activeEcoStep = 2" :class="activeEcoStep === 2 ? 'border-brand-red bg-brand-black shadow-lg' : 'border-white/10 bg-brand-black/80'" class="p-6 border transition-all duration-300 cursor-pointer relative group reveal-up flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-brand-red font-bold text-xs">02</span>
+                            <i data-lucide="layers" class="w-4 h-4 text-brand-muted"></i>
+                        </div>
+                        <h3 class="font-bold text-base uppercase text-white mb-2" x-text="t('ecoStep2Title')"></h3>
+                        <p class="text-xs text-brand-muted" x-text="t('ecoStep2Desc')"></p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-white/10 text-[10px] font-mono text-brand-muted" x-text="t('ecoStep2Foot')"></div>
+                </div>
+
+                <!-- Node 03 (Center / PT. DZAKIY MAJU BERSAMA) -->
+                <div @click="activeEcoStep = 3" @mouseenter="activeEcoStep = 3" :class="activeEcoStep === 3 ? 'border-brand-red bg-brand-black ring-2 ring-brand-red shadow-2xl xl:-translate-y-2' : 'border-brand-red/60 bg-brand-black'" class="p-6 border-2 transition-all duration-300 cursor-pointer relative group bg-brand-black reveal-up flex flex-col justify-between">
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-brand-red text-white text-[9px] font-bold px-3 py-1 tracking-wider uppercase shadow-md whitespace-nowrap z-20" x-text="t('nodeCenterBadge')"></div>
+                    <div>
+                        <div class="flex items-center justify-between mb-4 pt-1">
+                            <span class="text-brand-red font-bold text-xs">03</span>
+                            <div class="w-3 h-3 bg-brand-red animate-pulse"></div>
+                        </div>
+                        <h3 class="font-bold text-base uppercase text-white mb-2">PT. DZAKIY MAJU BERSAMA</h3>
+                        <p class="text-xs text-brand-muted" x-text="t('ecoStep3Desc')"></p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-brand-red/30 text-[10px] font-mono text-brand-red font-bold" x-text="t('ecoStep3Foot')"></div>
+                </div>
+
+                <!-- Node 04 -->
+                <div @click="activeEcoStep = 4" @mouseenter="activeEcoStep = 4" :class="activeEcoStep === 4 ? 'border-brand-red bg-brand-black shadow-lg' : 'border-white/10 bg-brand-black/80'" class="p-6 border transition-all duration-300 cursor-pointer relative group reveal-up flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-brand-red font-bold text-xs">04</span>
+                            <i data-lucide="truck" class="w-4 h-4 text-brand-muted"></i>
+                        </div>
+                        <h3 class="font-bold text-base uppercase text-white mb-2" x-text="t('ecoStep4Title')"></h3>
+                        <p class="text-xs text-brand-muted" x-text="t('ecoStep4Desc')"></p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-white/10 text-[10px] font-mono text-brand-muted" x-text="t('ecoStep4Foot')"></div>
+                </div>
+
+                <!-- Node 05 -->
+                <div @click="activeEcoStep = 5" @mouseenter="activeEcoStep = 5" :class="activeEcoStep === 5 ? 'border-brand-red bg-brand-black shadow-lg' : 'border-white/10 bg-brand-black/80'" class="p-6 border transition-all duration-300 cursor-pointer relative group reveal-up flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-brand-red font-bold text-xs">05</span>
+                            <i data-lucide="globe-2" class="w-4 h-4 text-brand-muted"></i>
+                        </div>
+                        <h3 class="font-bold text-base uppercase text-white mb-2" x-text="t('ecoStep5Title')"></h3>
+                        <p class="text-xs text-brand-muted" x-text="t('ecoStep5Desc')"></p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-white/10 text-[10px] font-mono text-brand-muted" x-text="t('ecoStep5Foot')"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="business-areas" class="py-28 bg-brand-black text-brand-light border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="mb-16 reveal-up">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="h-[2px] w-8 bg-brand-red"></span>
+                    <span class="text-xs sm:text-sm uppercase tracking-widest text-brand-red font-bold" x-text="t('sec6Sub')"></span>
+                </div>
+                <h2 class="font-bold text-3xl sm:text-4xl md:text-5xl lg:text-5xl uppercase tracking-normal text-white leading-snug">
+                    <span x-text="t('sec6Title1')"></span><span class="text-brand-red">.</span><br>
+                    <span x-text="t('sec6Title2')"></span><span class="text-brand-red">.</span>
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 reveal-up">
+                <div class="border border-white/10 bg-brand-dark p-8 relative group hover:border-brand-red/50 transition-colors">
+                    <div class="w-8 h-[2px] bg-brand-red mb-6"></div>
+                    <span class="text-brand-red font-bold text-sm tracking-widest">01</span>
+                    <h3 class="font-bold text-xl uppercase tracking-wider text-white mt-2 mb-6" x-text="t('sec6Col1Title')"></h3>
+                    <ul class="space-y-4 text-sm text-brand-muted border-t border-white/10 pt-6 font-mono">
+                        <li class="flex items-center gap-3 hover:text-white transition-colors"><i data-lucide="chevron-right" class="w-4 h-4 text-brand-red"></i><span x-text="t('sec6Col1Item1')"></span></li>
+                        <li class="flex items-center gap-3 hover:text-white transition-colors"><i data-lucide="chevron-right" class="w-4 h-4 text-brand-red"></i><span x-text="t('sec6Col1Item2')"></span></li>
+                        <li class="flex items-center gap-3 hover:text-white transition-colors"><i data-lucide="chevron-right" class="w-4 h-4 text-brand-red"></i><span x-text="t('sec6Col1Item3')"></span></li>
+                        <li class="flex items-center gap-3 hover:text-white transition-colors"><i data-lucide="chevron-right" class="w-4 h-4 text-brand-red"></i><span x-text="t('sec6Col1Item4')"></span></li>
+                        <li class="flex items-center gap-3 hover:text-white transition-colors"><i data-lucide="chevron-right" class="w-4 h-4 text-brand-red"></i><span x-text="t('sec6Col1Item5')"></span></li>
+                    </ul>
+                </div>
+
+                <div class="border border-white/10 bg-brand-dark p-8 relative group hover:border-brand-red/50 transition-colors">
+                    <div class="w-8 h-[2px] bg-brand-red mb-6"></div>
+                    <span class="text-brand-red font-bold text-sm tracking-widest">02</span>
+                    <h3 class="font-bold text-xl uppercase tracking-wider text-white mt-2 mb-6" x-text="t('sec6Col2Title')"></h3>
+                    <ul class="space-y-4 text-sm text-brand-muted border-t border-white/10 pt-6 font-mono">
+                        <li class="flex items-center gap-3 hover:text-white transition-colors"><i data-lucide="chevron-right" class="w-4 h-4 text-brand-red"></i><span x-text="t('sec6Col2Item1')"></span></li>
+                        <li class="flex items-center gap-3 hover:text-white transition-colors"><i data-lucide="chevron-right" class="w-4 h-4 text-brand-red"></i><span x-text="t('sec6Col2Item2')"></span></li>
+                        <li class="flex items-center gap-3 hover:text-white transition-colors"><i data-lucide="chevron-right" class="w-4 h-4 text-brand-red"></i><span x-text="t('sec6Col2Item3')"></span></li>
+                        <li class="flex items-center gap-3 hover:text-white transition-colors"><i data-lucide="chevron-right" class="w-4 h-4 text-brand-red"></i><span x-text="t('sec6Col2Item4')"></span></li>
+                        <li class="flex items-center gap-3 hover:text-white transition-colors"><i data-lucide="chevron-right" class="w-4 h-4 text-brand-red"></i><span x-text="t('sec6Col2Item5')"></span></li>
+                    </ul>
+                </div>
+
+                <div class="border border-white/10 bg-brand-dark p-8 relative group hover:border-brand-red/50 transition-colors">
+                    <div class="w-8 h-[2px] bg-brand-red mb-6"></div>
+                    <span class="text-brand-red font-bold text-sm tracking-widest">03</span>
+                    <h3 class="font-bold text-xl uppercase tracking-wider text-white mt-2 mb-6" x-text="t('sec6Col3Title')"></h3>
+                    <ul class="space-y-4 text-sm text-brand-muted border-t border-white/10 pt-6 font-mono">
+                        <li class="flex items-center gap-3 hover:text-white transition-colors"><i data-lucide="chevron-right" class="w-4 h-4 text-brand-red"></i><span x-text="t('sec6Col3Item1')"></span></li>
+                        <li class="flex items-center gap-3 hover:text-white transition-colors"><i data-lucide="chevron-right" class="w-4 h-4 text-brand-red"></i><span x-text="t('sec6Col3Item2')"></span></li>
+                        <li class="flex items-center gap-3 hover:text-white transition-colors"><i data-lucide="chevron-right" class="w-4 h-4 text-brand-red"></i><span x-text="t('sec6Col3Item3')"></span></li>
+                        <li class="flex items-center gap-3 hover:text-white transition-colors"><i data-lucide="chevron-right" class="w-4 h-4 text-brand-red"></i><span x-text="t('sec6Col3Item4')"></span></li>
+                        <li class="flex items-center gap-3 hover:text-white transition-colors"><i data-lucide="chevron-right" class="w-4 h-4 text-brand-red"></i><span x-text="t('sec6Col3Item5')"></span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-28 bg-brand-dark text-brand-light border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="mb-16 reveal-up">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="h-[2px] w-8 bg-brand-red"></span>
+                    <span class="text-xs sm:text-sm uppercase tracking-widest text-brand-red font-bold" x-text="t('sec7Sub')"></span>
+                </div>
+                <h2 class="font-bold text-3xl sm:text-4xl md:text-5xl lg:text-5xl uppercase tracking-normal text-white leading-snug">
+                    <span x-text="t('sec7Title1')"></span><span class="text-brand-red">.</span><br>
+                    <span x-text="t('sec7Title2')"></span><span class="text-brand-red">.</span>
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 divide-y lg:divide-y-0 lg:divide-x divide-white/10 reveal-up">
+                <div class="pt-6 lg:pt-0 lg:pl-0 pr-4 group">
+                    <span class="font-extrabold text-4xl text-brand-red block mb-4 transform group-hover:translate-x-1 transition-transform">01</span>
+                    <h3 class="font-bold text-xl uppercase tracking-wider text-white mb-2" x-text="t('why1Title')"></h3>
+                    <p class="text-sm text-brand-muted leading-relaxed font-normal" x-text="t('why1Desc')"></p>
+                </div>
+                <div class="pt-6 lg:pt-0 lg:pl-8 pr-4 group">
+                    <span class="font-extrabold text-4xl text-brand-red block mb-4 transform group-hover:translate-x-1 transition-transform">02</span>
+                    <h3 class="font-bold text-xl uppercase tracking-wider text-white mb-2" x-text="t('why2Title')"></h3>
+                    <p class="text-sm text-brand-muted leading-relaxed font-normal" x-text="t('why2Desc')"></p>
+                </div>
+                <div class="pt-6 lg:pt-0 lg:pl-8 pr-4 group">
+                    <span class="font-extrabold text-4xl text-brand-red block mb-4 transform group-hover:translate-x-1 transition-transform">03</span>
+                    <h3 class="font-bold text-xl uppercase tracking-wider text-white mb-2" x-text="t('why3Title')"></h3>
+                    <p class="text-sm text-brand-muted leading-relaxed font-normal" x-text="t('why3Desc')"></p>
+                </div>
+                <div class="pt-6 lg:pt-0 lg:pl-8 group">
+                    <span class="font-extrabold text-4xl text-brand-red block mb-4 transform group-hover:translate-x-1 transition-transform">04</span>
+                    <h3 class="font-bold text-xl uppercase tracking-wider text-white mb-2" x-text="t('why4Title')"></h3>
+                    <p class="text-sm text-brand-muted leading-relaxed font-normal" x-text="t('why4Desc')"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="final-cta-trigger" class="py-28 bg-brand-black text-brand-light relative border-t border-brand-red/40 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-8">
+                    <span class="text-brand-red font-bold text-xs sm:text-sm tracking-widest uppercase mb-4 block" x-text="t('finalBadge')"></span>
+                    <div class="space-y-2 mb-6">
+                        <div id="cta-line-1" class="diagram-step">
+                            <h2 class="font-bold text-3xl sm:text-5xl md:text-6xl uppercase tracking-normal text-white leading-normal" x-text="t('finalTitle1')"></h2>
+                        </div>
+                        <div id="cta-line-2" class="diagram-step">
+                            <h2 class="font-bold text-3xl sm:text-5xl md:text-6xl uppercase tracking-normal text-brand-red leading-normal" x-text="t('finalTitle2')"></h2>
+                        </div>
+                    </div>
+                    <div class="w-full max-w-md mb-8 overflow-hidden">
+                        <svg class="w-full h-3" viewBox="0 0 400 10">
+                            <line id="cta-red-line" x1="0" y1="5" x2="400" y2="5" stroke="#D71920" stroke-width="4" class="svg-line-draw"/>
+                        </svg>
+                    </div>
+                    <p id="cta-copy" class="diagram-step text-brand-muted text-base sm:text-lg max-w-2xl leading-relaxed mb-8" x-text="t('finalDesc')"></p>
+                    <div id="cta-button" class="diagram-step">
+                        <button @click="modalOpen = true" @mouseenter="hoverCta(true)" @mouseleave="hoverCta(false)" class="px-10 py-5 bg-brand-red hover:bg-brand-redHover text-white font-bold uppercase tracking-wider text-sm sm:text-base inline-flex items-center gap-3 transition-all duration-300 shadow-2xl hover:shadow-brand-red/40">
+                            <span x-text="t('finalCtaBtn')"></span>
+                            <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Corporate Info Box with Vector Icons -->
+                <div class="lg:col-span-4 bg-brand-dark border border-white/10 p-8 space-y-6 reveal-up">
+                    <h4 class="font-bold text-lg uppercase tracking-wider text-white border-b border-white/10 pb-4" x-text="t('hqTitle')"></h4>
+
+                    <div class="space-y-4 text-xs font-mono text-brand-muted">
+                        <div class="flex items-start gap-3">
+                            <svg class="w-4 h-4 text-brand-red flex-shrink-0 mt-0.5 fill-current" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                            <div>
+                                <span class="text-white block font-sans font-bold mb-0.5 uppercase" x-text="t('hqEmailLabel')"></span>
+                                <a href="mailto:legal@dzakiymajubersama.com" class="text-brand-red hover:underline">legal@dzakiymajubersama.com</a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3">
+                            <svg class="w-4 h-4 text-brand-red flex-shrink-0 mt-0.5 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.096 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                            <div>
+                                <span class="text-white block font-sans font-bold mb-0.5 uppercase" x-text="t('hqWaLabel')"></span>
+                                <a href="https://wa.me/628133132006?text=Halo%20PT.%20Dzakiy%20Maju%20Bersama%2C%20saya%20tertarik%20untuk%20mengetahui%20lebih%20lanjut%20mengenai%20layanan%20dan%20peluang%20kerja%20sama." target="_blank" class="text-brand-red hover:underline">+62 813 3132 006</a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3">
+                            <svg class="w-4 h-4 text-brand-red flex-shrink-0 mt-0.5 fill-current" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                            <div>
+                                <span class="text-white block font-sans font-bold mb-0.5 uppercase" x-text="t('hqLocLabel')"></span>
+                                <span x-text="t('hqLocValue')"></span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3">
+                            <svg class="w-4 h-4 text-brand-red flex-shrink-0 mt-0.5 fill-current" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                            <div>
+                                <span class="text-white block font-sans font-bold mb-0.5 uppercase">NPWP</span>
+                                <span>1000 0000 1105</span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3">
+                            <svg class="w-4 h-4 text-brand-red flex-shrink-0 mt-0.5 fill-current" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+                            <div>
+                                <span class="text-white block font-sans font-bold mb-0.5 uppercase">NIB</span>
+                                <span>0709260103736</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FLOATING PERSISTENT RED WHATSAPP TOGGLE BUTTON WITH WHITE VECTOR ICON -->
+    <a href="https://wa.me/628133132006?text=Halo%20PT.%20Dzakiy%20Maju%20Bersama%2C%20saya%20tertarik%20untuk%20mengetahui%20lebih%20lanjut%20mengenai%20layanan%20dan%20peluang%20kerja%20sama." 
+       target="_blank" 
+       @mouseenter="hoverCta(true)" 
+       @mouseleave="hoverCta(false)"
+       class="fixed bottom-6 right-6 z-[999] bg-brand-red hover:bg-brand-redHover text-white p-4 rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 hover:scale-110 group"
+       title="Hubungi WhatsApp Kami">
+        <svg class="w-7 h-7 fill-white" viewBox="0 0 24 24">
+            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.096 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+        </svg>
+    </a>
+
+    <footer class="py-12 bg-brand-black border-t border-white/10 text-xs text-brand-muted">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 flex-shrink-0">
+                    <img src="https://cdn.phototourl.com/member/2026-09-27-f998a1a6-e9c4-46c3-8a87-d45dd4ae1925.png" alt="Logo" class="w-full h-full object-contain"/>
+                </div>
+                <span class="font-serif font-bold text-sm tracking-wider text-white">
+                    PT. <span class="text-brand-red">DZAKIY</span> MAJU BERSAMA
+                </span>
+            </div>
+            <nav class="flex flex-wrap items-center gap-6 font-mono text-[11px] uppercase tracking-wider">
+                <a href="#about" class="hover:text-brand-red transition-colors" x-text="t('navWhoWeAre')"></a>
+                <a href="#capabilities" class="hover:text-brand-red transition-colors" x-text="t('navCapabilities')"></a>
+                <a href="#ecosystem" class="hover:text-brand-red transition-colors" x-text="t('navEcosystem')"></a>
+                <a href="#business-areas" class="hover:text-brand-red transition-colors" x-text="t('navSectors')"></a>
+            </nav>
+            <div class="font-mono text-[11px]">
+                &copy; 2026 PT. DZAKIY MAJU BERSAMA. <span x-text="t('footerRights')"></span>
+            </div>
+        </div>
     </footer>
 
+    <!-- Inquiry Modal with WhatsApp Integration -->
+    <div x-show="modalOpen" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-brand-black/90 backdrop-blur-md" style="display: none;">
+        <div @click.away="modalOpen = false" class="bg-brand-dark border-2 border-brand-red max-w-2xl w-full p-8 relative shadow-2xl overflow-y-auto max-h-[90vh]">
+            <button @click="modalOpen = false" class="absolute top-6 right-6 text-brand-muted hover:text-white transition-colors">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-8 h-8 flex-shrink-0">
+                    <img src="https://cdn.phototourl.com/member/2026-09-27-f998a1a6-e9c4-46c3-8a87-d45dd4ae1925.png" alt="Logo" class="w-full h-full object-contain"/>
+                </div>
+                <span class="text-brand-red font-bold text-xs uppercase tracking-widest" x-text="t('modalHeaderBadge')"></span>
+            </div>
+            <h3 class="font-bold text-2xl uppercase tracking-normal text-white mt-1 mb-2" x-text="t('modalTitle')"></h3>
+            <p class="text-xs text-brand-muted mb-6" x-text="t('modalSubtitle')"></p>
+
+            <form @submit.prevent="submitToWhatsApp()" class="space-y-4 text-xs font-mono">
+                <div>
+                    <label class="block text-brand-light uppercase mb-1" x-text="t('fieldCategory')"></label>
+                    <select x-model="formCategory" class="w-full bg-brand-black border border-white/20 p-3 text-white focus:border-brand-red focus:outline-none">
+                        <option value="Project Financing" x-text="t('optFinancing')"></option>
+                        <option value="Commodity Trading" x-text="t('optCommodity')"></option>
+                        <option value="Investor Partnership" x-text="t('optInvestor')"></option>
+                        <option value="General Inquiry" x-text="t('optGeneral')"></option>
+                    </select>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-brand-light uppercase mb-1" x-text="t('fieldName')"></label>
+                        <input type="text" x-model="formName" required placeholder="e.g. Budi Santoso" class="w-full bg-brand-black border border-white/20 p-3 text-white focus:border-brand-red focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-brand-light uppercase mb-1" x-text="t('fieldCompany')"></label>
+                        <input type="text" x-model="formCompany" required placeholder="e.g. PT Capital Partners" class="w-full bg-brand-black border border-white/20 p-3 text-white focus:border-brand-red focus:outline-none">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-brand-light uppercase mb-1" x-text="t('fieldEmail')"></label>
+                        <input type="email" x-model="formEmail" required placeholder="name@company.com" class="w-full bg-brand-black border border-white/20 p-3 text-white focus:border-brand-red focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-brand-light uppercase mb-1" x-text="t('fieldPhone')"></label>
+                        <input type="tel" x-model="formPhone" required placeholder="+62 812 XXXX XXXX" class="w-full bg-brand-black border border-white/20 p-3 text-white focus:border-brand-red focus:outline-none">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-brand-light uppercase mb-1" x-text="t('fieldDetails')"></label>
+                    <textarea rows="4" x-model="formDetails" :placeholder="t('fieldDetailsHolder')" class="w-full bg-brand-black border border-white/20 p-3 text-white focus:border-brand-red focus:outline-none"></textarea>
+                </div>
+                <div class="pt-4 flex items-center justify-end gap-4">
+                    <button type="button" @click="modalOpen = false" class="px-6 py-3 border border-white/20 text-white font-bold uppercase tracking-wider text-xs" x-text="t('btnCancel')"></button>
+                    <button type="submit" class="px-8 py-3 bg-brand-red hover:bg-brand-redHover text-white font-bold uppercase tracking-wider text-xs inline-flex items-center gap-2">
+                        <span x-text="t('btnSubmit')"></span> &rarr;
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const i18n = {
+            ID: {
+                introTagline: "CONNECTING CAPITAL TO OPPORTUNITY.",
+                subTagline: "CONSULTAN PROJECT FINANCING - TRADING - MINING",
+                navWhoWeAre: "Siapa Kami",
+                navConnectionLayer: "Project Financing",
+                navCapabilities: "Kapabilitas",
+                navEcosystem: "Ekosistem",
+                navSectors: "Sektor Bisnis",
+                ctaDiscuss: "DISKUSIKAN PROYEK",
+                heroHeadline1: "MENGHUBUNGKAN MODAL.",
+                heroHeadline2: "MEMBUKA PELUANG",
+                heroTag1: "KONSULTAN BISNIS",
+                heroTag2: "PEMBIAYAAN PROYEK",
+                heroTag3: "KOMODITAS",
+                heroTag4: "SUMBER DAYA",
+                heroExploreBtn: "EKSPLORASI BISNIS KAMI",
+                heroSubLeft: "PT. DZAKIY MAJU BERSAMA — MITRA TRANSAKSI STRATEGIS",
+
+                sec2Sub: "SIAPA KAMI",
+                sec2Title1: "PELUANG YANG TEPAT",
+                sec2Title2: "MEMBUTUHKAN",
+                sec2Title3: "KONEKSI YANG TEPAT.",
+                sec2P1: "<strong class=\"text-brand-black font-bold\">PT. DZAKIY MAJU BERSAMA</strong> menghubungkan proyek dan kebutuhan bisnis dengan penyedia modal, investor, mitra strategis, pemasok, dan pembeli global yang relevan.",
+                sec2P2: "Kami mendukung seluruh siklus transaksi mulai dari penilaian strategis tahap awal hingga peluang terstruktur, pencocokan pihak lawan (counterparty), dan eksekusi komersial.",
+
+                sec4Sub: "KAPABILITAS",
+                sec4Title1: "TIGA PILAR",
+                sec4Title2: "DAMPAK NYATA",
+                cap1Label: "PILAR 01 — KONSULTASI",
+                cap1Title: "KONSULTASI BISNIS STRATEGIS",
+                cap1P1: "Membimbing perusahaan, pemilik proyek, dan lembaga keuangan melalui keputusan strategis kompleks, penetrasi pasar, dan arsitektur modal.",
+                cap1P2: "Kami menganalisis kelayakan proyek, merancang model bisnis, dan melakukan uji kelayakan (due diligence) strategis untuk menyiapkan peluang bagi penyaluran modal.",
+                cap1L1: "Konsultasi Bisnis Strategis",
+                cap1L2: "Penasihat Pembiayaan Proyek",
+                cap1L3: "Struktur Transaksi & Tata Kelola",
+                cap1L4: "Ekspansi & Strategi Masuk Pasar",
+
+                cap2Label: "PILAR 02 — TRANSAKSI",
+                cap2Title: "ARRANGEMENT & DUKUNGAN TRANSAKSI",
+                cap2P1: "Dukungan eksekusi langsung yang menghubungkan proyek dengan investor terverifikasi, penyedia pinjaman, off-taker, dan mitra transaksi.",
+                cap2P2: "Kami memfasilitasi diskusi komersial, menegosiasikan keselarasan antar pihak, dan memastikan kejelasan transaksi dari niat awal hingga penyelesaian.",
+                cap2L1: "Koneksi Bisnis & Matchmaking",
+                cap2L2: "Dukungan Struktur Transaksi",
+                cap2L3: "Fasilitasi Penggalangan Modal",
+                cap2L4: "Negosiation Perjanjian Off-Take",
+
+                cap3Label: "PILAR 03 — SUMBER DAYA",
+                cap3Title: "BISNIS KOMODITAS & SUMBER DAYA",
+                cap3P1: "Keterlibatan aktif dalam komoditas fisik utama meliputi Batu Bara, Pasir Industri, Bauksit, dan pengolahan kayu.",
+                cap3P2: "Menghubungkan tambang, pabrik pengolahan, dan logistik pelabuhan dengan pembeli industri domestik serta pasar ekspor global.",
+                cap3L1: "Pasokan Batu Bara (Coal)",
+                cap3L2: "Pasir & Mineral Industri",
+                cap3L3: "Pasokan Bauksit (Bauxite)",
+                cap3L4: "Fasilitasi Ekspor & Impor",
+
+                sec5Sub: "ALUR EKOSISTEM",
+                sec5Title1: "DARI MODAL",
+                sec5Title2: "HINGGA",
+                sec5Title3: "PASAR.",
+                ecoStep1Title: "MODAL",
+                ecoStep1Desc: "Pendanaan & Dukungan Keuangan",
+                ecoStep1Foot: "Ekuitas • Utang • Pembiayaan Proyek",
+                ecoStep2Title: "PROYEK",
+                ecoStep2Desc: "Kelayakan & Pengembangan",
+                ecoStep2Foot: "Lahan • Tambang • Infrastruktur",
+                nodeCenterBadge: "CONNECTING LAYER",
+                ecoStep3Desc: "Pusat Transaksi & Penyelarasan",
+                ecoStep3Foot: "Strukturasi & Eksekusi",
+                ecoStep4Title: "PASOKAN",
+                ecoStep4Desc: "Sumber Daya & Produksi",
+                ecoStep4Foot: "Komoditas • Kayu • Pasir",
+                ecoStep5Title: "PASAR",
+                ecoStep5Desc: "Distribusi & Jangkauan Global",
+                ecoStep5Foot: "Pembeli Domestik • Offtaker Ekspor",
+
+                sec6Sub: "SEKTOR OPERASIONAL",
+                sec6Title1: "SEKTOR RIIL",
+                sec6Title2: "PELUANG NYATA",
+                sec6Col1Title: "ADVISORY & TRANSAKSI",
+                sec6Col1Item1: "Konsultasi Bisnis",
+                sec6Col1Item2: "Penasihat Pembiayaan Proyek",
+                sec6Col1Item3: "Koneksi Bisnis",
+                sec6Col1Item4: "Arrangement Transaksi",
+                sec6Col1Item5: "Dukungan Transaksi",
+                sec6Col2Title: "KOMODITAS & SUMBER DAYA",
+                sec6Col2Item1: "Batu Bara (Coal Trading)",
+                sec6Col2Item2: "Pasir (Industrial Sand)",
+                sec6Col2Item3: "Bauksit (Bauxite Supply)",
+                sec6Col2Item4: "Trading Desk Komoditas",
+                sec6Col2Item5: "Peluang Komoditas Lainnya",
+                sec6Col3Title: "PROYEK & NILAI TAMBAH",
+                sec6Col3Item1: "Pematangan Lahan (Land Prep)",
+                sec6Col3Item2: "Pabrikasi / Manufaktur Kayu",
+                sec6Col3Item3: "Fasilitasi Ekspor & Impor",
+                sec6Col3Item4: "Mitigasi Risiko Aset Industri",
+                sec6Col3Item5: "Dukungan Offtake Strategis",
+
+                sec7Sub: "MENGAPA DZAKIY",
+                sec7Title1: "LEBIH DARI TRANSAKSI",
+                sec7Title2: "KAMI MENCIPTAKAN PENYELARASAN",
+                why1Title: "RELEVANSI",
+                why1Desc: "Menghubungkan pihak yang tepat melalui penyaringan ketat, pemahaman kontekstual, dan penargetan mitra yang akurat.",
+                why2Title: "EFISIENSI",
+                why2Desc: "Proses yang efisien dan terarah untuk mengurangi kendala transaksi serta mempercepat komitmen eksekusi.",
+                why3Title: "PENYELARASAN",
+                why3Desc: "Memahami secara mendalam kepentingan strategis dan finansial di balik setiap transaksi untuk kesepakatan yang berkelanjutan.",
+                why4Title: "EKSEKUSI",
+                why4Desc: "Mengubah peluang abstrak menjadi dokumentasi terstruktur, kontrak kerja nyata, dan realisasi proyek.",
+
+                finalBadge: "MULAI DISKUSI",
+                finalTitle1: "MARI BANGUN",
+                finalTitle2: "KONEKSI YANG TEPAT.",
+                finalDesc: "Memiliki proyek, kebutuhan modal, pasokan komoditas, peluang pasar, atau kemitraan strategis? Mari diskusikan bagaimana PT. DZAKIY MAJU BERSAMA dapat merancang struktur dan menghubungkan peluang Anda dengan pihak lawan yang tepat.",
+                finalCtaBtn: "DISKUSIKAN PELUANG ANDA",
+                hqTitle: "ALAMAT KANTOR PUSAT",
+                hqEmailLabel: "EMAIL",
+                hqWaLabel: "WHATSAPP",
+                hqLocLabel: "ALAMAT",
+                hqLocValue: "EightyEight@Kasablanka Tower A, 10E Floor, Casablanca No 88, Jakarta 12780",
+                footerRights: "Hak Cipta Dilindungi Undang-Undang.",
+
+                modalHeaderBadge: "INQUIRY TRANSAKSI & PROYEK",
+                modalTitle: "DISKUSIKAN PELUANG ANDA",
+                modalSubtitle: "Kirimkan spesifikasi proyek atau kebutuhan transaksi Anda untuk terhubung langsung via WhatsApp dengan tim manajemen kami.",
+                fieldCategory: "Kategori Inquiry",
+                optFinancing: "Penasihat Pembiayaan Proyek",
+                optCommodity: "Perdagangan / Offtake Komoditas (Batu Bara, Pasir, Bauksit)",
+                optInvestor: "Kemitraan Investor Strategis / Penyedia Modal",
+                optGeneral: "Koneksi Bisnis Umum",
+                fieldName: "Nama Lengkap *",
+                fieldCompany: "Perusahaan / Organisasi *",
+                fieldEmail: "Alamat Email *",
+                fieldPhone: "Telepon / WhatsApp *",
+                fieldDetails: "Ringkasan / Detail Peluang",
+                fieldDetailsHolder: "Jelaskan secara singkat skala proyek, kebutuhan komoditas, atau struktur modal...",
+                btnCancel: "BATAL",
+                btnSubmit: "KIRIM VIA WHATSAPP"
+            },
+            EN: {
+                introTagline: "CONNECTING CAPITAL TO OPPORTUNITY.",
+                subTagline: "CONSULTAN PROJECT FINANCING - TRADING - MINING",
+                navWhoWeAre: "Who We Are",
+                navConnectionLayer: "Project Financing",
+                navCapabilities: "Capabilities",
+                navEcosystem: "Ecosystem",
+                navSectors: "Sectors",
+                ctaDiscuss: "DISCUSS A PROJECT",
+                heroHeadline1: "CONNECTING CAPITAL.",
+                heroHeadline2: "OPENING OPPORTUNITY",
+                heroTag1: "BUSINESS ADVISORY",
+                heroTag2: "PROJECT FINANCING",
+                heroTag3: "COMMODITIES",
+                heroTag4: "RESOURCES",
+                heroExploreBtn: "EXPLORE OUR BUSINESS",
+                heroSubLeft: "PT. DZAKIY MAJU BERSAMA — STRATEGIC TRANSACTION PARTNER",
+
+                sec2Sub: "WHO WE ARE",
+                sec2Title1: "THE RIGHT OPPORTUNITY",
+                sec2Title2: "NEEDS THE RIGHT",
+                sec2Title3: "CONNECTION.",
+                sec2P1: "<strong class=\"text-brand-black font-bold\">PT. DZAKIY MAJU BERSAMA</strong> connects projects and business needs with relevant capital providers, investors, strategic partners, suppliers, and global buyers.",
+                sec2P2: "We support the entire transaction lifecycle from early-stage strategic assessment through structured opportunities, counterparty matching, and commercial execution.",
+
+                sec4Sub: "CAPABILITIES",
+                sec4Title1: "THREE PILLARS",
+                sec4Title2: "REAL IMPACT",
+                cap1Label: "PILLAR 01 — ADVISORY",
+                cap1Title: "STRATEGIC BUSINESS ADVISORY",
+                cap1P1: "Guiding companies, project owners, and financial institutions through complex strategic decisions, market entry, and capital architecture.",
+                cap1P2: "We analyze project feasibilities, structure business models, and perform strategic due diligence to prepare opportunities for capital deployment.",
+                cap1L1: "Strategic Business Consulting",
+                cap1L2: "Project Financing Advisory",
+                cap1L3: "Deal Structuring & Governance",
+                cap1L4: "Market Expansion & Entry Strategy",
+
+                cap2Label: "PILLAR 02 — TRANSACTION",
+                cap2Title: "TRANSACTION ARRANGEMENT & SUPPORT",
+                cap2P1: "Hands-on execution support connecting projects with qualified investors, debt providers, off-takers, and transactional partners.",
+                cap2P2: "We facilitate commercial discussions, negotiate alignment across parties, and ensure transactional clarity from intent to close.",
+                cap2L1: "Business Connection & Matchmaking",
+                cap2L2: "Transaction Structuring Support",
+                cap2L3: "Capital Raising Facilitation",
+                cap2L4: "Off-Take Agreement Negotiation",
+
+                cap3Label: "PILLAR 03 — RESOURCES",
+                cap3Title: "COMMODITY & RESOURCE BUSINESS",
+                cap3P1: "Active involvement in primary physical commodities including Coal (Batu Bara), Silica Sand (Pasir), Bauxite (Bauksit), and timber processing.",
+                cap3P2: "Connecting mines, processing plants, and port logistics with domestic industrial buyers and global export markets.",
+                cap3L1: "Batu Bara (Coal Supply)",
+                cap3L2: "Pasir & Industrial Minerals",
+                cap3L3: "Bauksit (Bauxite Supply)",
+                cap3L4: "Export & Import Facilitation",
+
+                sec5Sub: "ECOSYSTEM FLOW",
+                sec5Title1: "FROM CAPITAL",
+                sec5Title2: "TO",
+                sec5Title3: "MARKET.",
+                ecoStep1Title: "CAPITAL",
+                ecoStep1Desc: "Funding & Financial Support",
+                ecoStep1Foot: "Equity • Debt • Project Finance",
+                ecoStep2Title: "PROJECT",
+                ecoStep2Desc: "Feasibility & Development",
+                ecoStep2Foot: "Land • Mining • Infrastructure",
+                nodeCenterBadge: "CONNECTING LAYER",
+                ecoStep3Desc: "Transaction & Alignment Nexus",
+                ecoStep3Foot: "Structuring & Execution",
+                ecoStep4Title: "SUPPLY",
+                ecoStep4Desc: "Resources & Production",
+                ecoStep4Foot: "Commodities • Timber • Sand",
+                ecoStep5Title: "MARKET",
+                ecoStep5Desc: "Distribution & Global Reach",
+                ecoStep5Foot: "Domestic Buyers • Export Offtaker",
+
+                sec6Sub: "OPERATIONAL SECTORS",
+                sec6Title1: "REAL SECTORS",
+                sec6Title2: "REAL OPPORTUNITIES",
+                sec6Col1Title: "ADVISORY & TRANSACTION",
+                sec6Col1Item1: "Business Consulting",
+                sec6Col1Item2: "Project Financing Advisory",
+                sec6Col1Item3: "Business Connection",
+                sec6Col1Item4: "Transaction Arrangement",
+                sec6Col1Item5: "Transaction Support",
+                sec6Col2Title: "COMMODITY & RESOURCES",
+                sec6Col2Item1: "Batu Bara (Coal Trading)",
+                sec6Col2Item2: "Pasir (Industrial Sand)",
+                sec6Col2Item3: "Bauksit (Bauxite Supply)",
+                sec6Col2Item4: "Commodity Trading Desks",
+                sec6Col2Item5: "Other Commodity Opportunities",
+                sec6Col3Title: "PROJECT & VALUE DEVELOPMENT",
+                sec6Col3Item1: "Pematangan Lahan (Land Prep)",
+                sec6Col3Item2: "Pabrikasi / Manufaktur Kayu",
+                sec6Col3Item3: "Export & Import Facilitation",
+                sec6Col3Item4: "Industrial Asset De-risking",
+                sec6Col3Item5: "Strategic Offtake Support",
+
+                sec7Sub: "WHY DZAKIY",
+                sec7Title1: "MORE THAN TRANSACTIONS",
+                sec7Title2: "WE CREATE ALIGNMENT",
+                why1Title: "RELEVANCE",
+                why1Desc: "Connecting the right parties through rigorous screening, contextual understanding, and precise counterparty targeting.",
+                why2Title: "EFFICIENCY",
+                why2Desc: "Streamlined and targeted processes that reduce deal noise and accelerate time to actionable commitment.",
+                why3Title: "ALIGNMENT",
+                why3Desc: "Deeply understanding the strategic and financial interests behind every transaction to create sustainable win-win terms.",
+                why4Title: "EXECUTION",
+                why4Desc: "Moving abstract opportunities into structured documentation, actionable contracts, and real project realization.",
+
+                finalBadge: "START THE CONVERSATION",
+                finalTitle1: "LET'S BUILD",
+                finalTitle2: "THE RIGHT CONNECTION.",
+                finalDesc: "Have a project, capital requirement, supply need, market opportunity, or strategic partnership in mind? Let’s discuss how PT. DZAKIY MAJU BERSAMA can structure and connect your opportunity with the right counterparties.",
+                finalCtaBtn: "DISCUSS YOUR OPPORTUNITY",
+                hqTitle: "HEADQUARTERS ADDRESS",
+                hqEmailLabel: "EMAIL",
+                hqWaLabel: "WHATSAPP",
+                hqLocLabel: "ADDRESS",
+                hqLocValue: "EightyEight@Kasablanka Tower A, 10E Floor, Casablanca No 88, Jakarta 12780",
+                footerRights: "All rights reserved.",
+
+                modalHeaderBadge: "TRANSACTION & PROJECT INQUIRY",
+                modalTitle: "DISCUSS YOUR OPPORTUNITY",
+                modalSubtitle: "Submit your project specification or transaction requirements to connect instantly via WhatsApp with our management team.",
+                fieldCategory: "Inquiry Category",
+                optFinancing: "Project Financing Advisory",
+                optCommodity: "Commodity Trading / Offtake (Coal, Sand, Bauxite)",
+                optInvestor: "Strategic Investor / Capital Provider",
+                optGeneral: "General Business Connection",
+                fieldName: "Full Name *",
+                fieldCompany: "Company / Organization *",
+                fieldEmail: "Email Address *",
+                fieldPhone: "Phone / WhatsApp *",
+                fieldDetails: "Opportunity Summary / Details",
+                fieldDetailsHolder: "Briefly describe the project scale, commodity requirements, or capital structure...",
+                btnCancel: "CANCEL",
+                btnSubmit: "SEND VIA WHATSAPP"
+            }
+        };
+
+        function appData() {
+            return {
+                loaded: false,
+                introActive: true,
+                isScrolled: false,
+                mobileMenuOpen: false,
+                modalOpen: false,
+                selectedNode: 'dzakiy',
+                activeCapability: 0,
+                activeEcoStep: 3,
+                diagramStep: 5,
+                lang: 'ID',
+
+                formCategory: 'Project Financing',
+                formName: '',
+                formCompany: '',
+                formEmail: '',
+                formPhone: '',
+                formDetails: '',
+
+                submitToWhatsApp() {
+                    const phoneNum = '628133132006';
+                    const text = `Halo PT. Dzakiy Maju Bersama,%0A%0ASaya ingin mengirimkan inquiry strategis:%0A- *Kategori:* ${encodeURIComponent(this.formCategory)}%0A- *Nama:* ${encodeURIComponent(this.formName)}%0A- *Perusahaan:* ${encodeURIComponent(this.formCompany)}%0A- *Email:* ${encodeURIComponent(this.formEmail)}%0A- *Telepon:* ${encodeURIComponent(this.formPhone)}%0A- *Detail Peluang:* ${encodeURIComponent(this.formDetails)}`;
+                    
+                    window.open(`https://wa.me/${phoneNum}?text=${text}`, '_blank');
+                    this.modalOpen = false;
+                },
+
+                t(key) {
+                    return (i18n[this.lang] && i18n[this.lang][key]) ? i18n[this.lang][key] : (i18n['EN'][key] || '');
+                },
+
+                init() {
+                    window.appState = this;
+                    runBrandIntro(() => {
+                        this.loaded = true;
+                        this.introActive = false;
+                        this.initScrollObservers();
+                    });
+
+                    window.addEventListener('scroll', () => {
+                        this.isScrolled = (window.pageYOffset > 50);
+                    });
+
+                    this.$nextTick(() => {
+                        if (window.lucide) {
+                            lucide.createIcons();
+                        }
+                    });
+                },
+
+                hoverCta(isHovered) {
+                    if (isHovered) {
+                        document.body.classList.add('hovering-cta');
+                    } else {
+                        document.body.classList.remove('hovering-cta');
+                    }
+                },
+
+                initScrollObservers() {
+                    const observerOptions = { threshold: 0.05, rootMargin: '0px 0px -50px 0px' };
+                    const revealElements = document.querySelectorAll('.reveal-up');
+                    const revealObserver = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add('is-revealed');
+                            }
+                        });
+                    }, observerOptions);
+                    
+                    revealElements.forEach(el => revealObserver.observe(el));
+
+                    const ctaTrigger = document.getElementById('final-cta-trigger');
+                    if (ctaTrigger) {
+                        const ctaObserver = new IntersectionObserver((entries) => {
+                            entries.forEach(entry => {
+                                if (entry.isIntersecting) {
+                                    const line1 = document.getElementById('cta-line-1');
+                                    const line2 = document.getElementById('cta-line-2');
+                                    const redLine = document.getElementById('cta-red-line');
+                                    const copy = document.getElementById('cta-copy');
+                                    const btn = document.getElementById('cta-button');
+
+                                    setTimeout(() => line1 && line1.classList.add('active'), 100);
+                                    setTimeout(() => line2 && line2.classList.add('active'), 400);
+                                    setTimeout(() => redLine && redLine.classList.add('active'), 800);
+                                    setTimeout(() => copy && copy.classList.add('active'), 1100);
+                                    setTimeout(() => btn && btn.classList.add('active'), 1400);
+                                    ctaObserver.unobserve(entry.target);
+                                }
+                            });
+                        }, observerOptions);
+                        ctaObserver.observe(ctaTrigger);
+                    }
+                }
+            };
+        }
+
+        function runBrandIntro(onComplete) {
+            const logo = document.getElementById('intro-logo');
+            const name = document.getElementById('intro-name');
+            const tagline = document.getElementById('intro-tagline');
+            const redLine = document.getElementById('intro-red-line');
+
+            setTimeout(() => {
+                if (logo) {
+                    logo.classList.remove('opacity-0', 'scale-90');
+                    logo.classList.add('opacity-100', 'scale-100');
+                }
+            }, 500);
+
+            setTimeout(() => {
+                if (name) {
+                    name.classList.remove('opacity-0', 'translate-y-3');
+                    name.classList.add('opacity-100', 'translate-y-0');
+                }
+            }, 1000);
+
+            setTimeout(() => {
+                if (tagline) {
+                    tagline.classList.remove('opacity-0', 'translate-y-2');
+                    tagline.classList.add('opacity-100', 'translate-y-0');
+                }
+            }, 1500);
+
+            setTimeout(() => {
+                if (redLine) {
+                    redLine.style.width = '12rem';
+                }
+            }, 2000);
+
+            setTimeout(() => {
+                if (redLine) {
+                    redLine.style.transitionDuration = '600ms';
+                    redLine.style.width = '100vw';
+                }
+            }, 2500);
+
+            setTimeout(() => {
+                if (onComplete) onComplete();
+            }, 3100);
+        }
+
+        function handleCursor(e) {
+            const cursor = document.getElementById('custom-cursor');
+            const ring = document.getElementById('custom-cursor-ring');
+            if (!cursor || !ring) return;
+
+            cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`;
+            ring.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`;
+        }
+    </script>
 </body>
 </html>
 ```
