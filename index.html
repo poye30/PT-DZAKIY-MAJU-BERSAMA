@@ -8,8 +8,8 @@
     <meta name="description" content="PT. Dzakiy Maju Bersama menyediakan solusi pembiayaan proyek, konsultasi bisnis, perdagangan komoditas, pertambangan, dan pengembangan bisnis, serta peluang kerja sama perdagangan dan ekspor untuk pasar domestik maupun internasional.">
     
     <!-- Favicon -->
-<link rel="icon" type="image/png" href="favicon.png">
-<link rel="apple-touch-icon" href="favicon.png">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="favicon.png">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -188,12 +188,13 @@
             </a>
 
             <!-- Desktop Nav -->
-            <nav class="hidden xl:flex items-center gap-6 xl:gap-8">
+            <nav class="hidden xl:flex items-center gap-5 xl:gap-7">
                 <a href="#about" class="text-xs uppercase tracking-widest font-semibold text-brand-light/80 hover:text-brand-red transition-colors whitespace-nowrap" x-text="t('navWhoWeAre')"></a>
                 <a href="#how-we-connect" class="text-xs uppercase tracking-widest font-semibold text-brand-light/80 hover:text-brand-red transition-colors whitespace-nowrap" x-text="t('navConnectionLayer')"></a>
                 <a href="#capabilities" class="text-xs uppercase tracking-widest font-semibold text-brand-light/80 hover:text-brand-red transition-colors whitespace-nowrap" x-text="t('navCapabilities')"></a>
                 <a href="#ecosystem" class="text-xs uppercase tracking-widest font-semibold text-brand-light/80 hover:text-brand-red transition-colors whitespace-nowrap" x-text="t('navEcosystem')"></a>
                 <a href="#business-areas" class="text-xs uppercase tracking-widest font-semibold text-brand-light/80 hover:text-brand-red transition-colors whitespace-nowrap" x-text="t('navSectors')"></a>
+                <a href="#catalogue" class="text-xs uppercase tracking-widest font-semibold text-brand-light/80 hover:text-brand-red transition-colors whitespace-nowrap" x-text="t('navCatalogue')"></a>
                 <a href="#leadership" class="text-xs uppercase tracking-widest font-semibold text-brand-light/80 hover:text-brand-red transition-colors whitespace-nowrap" x-text="t('navLeadership')"></a>
             </nav>
 
@@ -227,6 +228,7 @@
             <a @click="mobileMenuOpen = false" href="#capabilities" class="text-sm uppercase tracking-widest font-semibold text-brand-light hover:text-brand-red" x-text="t('navCapabilities')"></a>
             <a @click="mobileMenuOpen = false" href="#ecosystem" class="text-sm uppercase tracking-widest font-semibold text-brand-light hover:text-brand-red" x-text="t('navEcosystem')"></a>
             <a @click="mobileMenuOpen = false" href="#business-areas" class="text-sm uppercase tracking-widest font-semibold text-brand-light hover:text-brand-red" x-text="t('navSectors')"></a>
+            <a @click="mobileMenuOpen = false" href="#catalogue" class="text-sm uppercase tracking-widest font-semibold text-brand-light hover:text-brand-red" x-text="t('navCatalogue')"></a>
             <a @click="mobileMenuOpen = false" href="#leadership" class="text-sm uppercase tracking-widest font-semibold text-brand-light hover:text-brand-red" x-text="t('navLeadership')"></a>
             <div class="pt-4 border-t border-white/10 flex items-center justify-between">
                 <span class="text-xs uppercase font-mono text-brand-muted">Language / Bahasa:</span>
@@ -699,78 +701,6 @@
         </div>
     </section>
 
-    <!-- Leadership Section (Struktur Perusahaan) -->
-    <section id="leadership" class="py-28 bg-[#0b0b0b] text-brand-light border-t border-white/10 relative overflow-hidden">
-        <div class="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
-            <!-- Header Section -->
-            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 pb-6 border-b border-white/10 reveal-up">
-                <div>
-                    <span class="font-serif font-bold text-xs sm:text-sm tracking-[0.2em] text-white/60 uppercase block mb-2">PT. DZAKIY MAJU BERSAMA</span>
-                    <h2 class="font-bold text-3xl sm:text-4xl md:text-5xl lg:text-5xl uppercase tracking-normal text-white">
-                        STRUKTUR PERUSAHAAN
-                    </h2>
-                </div>
-            </div>
-
-            <!-- Leadership Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-12 reveal-up">
-                <!-- Profile 01: Tomy Suryadi (Direktur Utama) -->
-                <div class="bg-brand-dark border border-white/10 p-6 flex flex-col justify-between group hover:border-brand-red/50 transition-all duration-300">
-                    <div>
-                        <div class="relative w-full aspect-[4/5] overflow-hidden bg-brand-black mb-6 border border-white/10">
-                            <img src="https://cdn.phototourl.com/member/2026-10-12-287ebb0f-82c4-4b7d-b384-2cc39b7ae009.jpg" alt="Tomy Suryadi — Direktur Utama" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"/>
-                        </div>
-                        <span class="text-sm sm:text-base font-mono tracking-[0.2em] uppercase text-brand-red font-bold block mb-2">
-                            DIREKTUR UTAMA
-                        </span>
-                        <h3 class="font-bold text-2xl sm:text-3xl uppercase tracking-wide text-white">
-                            Tomy Suryadi
-                        </h3>
-                    </div>
-                </div>
-
-                <!-- Profile 02: Achmad Muchlashon (Direktur) -->
-                <div class="bg-brand-dark border border-white/10 p-6 flex flex-col justify-between group hover:border-brand-red/50 transition-all duration-300">
-                    <div>
-                        <div class="relative w-full aspect-[4/5] overflow-hidden bg-brand-black mb-6 border border-white/10">
-                            <img src="https://cdn.phototourl.com/member/2026-10-12-6cafe1d9-3cf0-4746-980b-a86cf441107c.jpg" alt="Achmad Muchlashon — Direktur" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"/>
-                        </div>
-                        <span class="text-sm sm:text-base font-mono tracking-[0.2em] uppercase text-brand-red font-bold block mb-2">
-                            DIREKTUR
-                        </span>
-                        <h3 class="font-bold text-2xl sm:text-3xl uppercase tracking-wide text-white">
-                            Achmad Muchlashon
-                        </h3>
-                    </div>
-                </div>
-
-                <!-- Profile 03: Noviandita Trisnia Windy (Komisaris) -->
-                <div class="bg-brand-dark border border-white/10 p-8 flex flex-col justify-center group hover:border-brand-red/50 transition-all duration-300">
-                    <div>
-                        <span class="text-sm sm:text-base font-mono tracking-[0.2em] uppercase text-brand-red font-bold block mb-3">
-                            KOMISARIS
-                        </span>
-                        <h3 class="font-bold text-2xl sm:text-3xl uppercase tracking-wide text-white">
-                            Noviandita Trisnia Windy
-                        </h3>
-                    </div>
-                </div>
-
-                <!-- Profile 04: Ikrar Potawari (Komisaris Independen) -->
-                <div class="bg-brand-dark border border-white/10 p-8 flex flex-col justify-center group hover:border-brand-red/50 transition-all duration-300">
-                    <div>
-                        <span class="text-sm sm:text-base font-mono tracking-[0.2em] uppercase text-brand-red font-bold block mb-3">
-                            KOMISARIS INDEPENDEN
-                        </span>
-                        <h3 class="font-bold text-2xl sm:text-3xl uppercase tracking-wide text-white">
-                            Ikrar Potawari
-                        </h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Why Dzakiy Section -->
     <section class="py-28 bg-brand-dark text-brand-light border-t border-white/10">
         <div class="max-w-7xl mx-auto px-6 lg:px-12">
@@ -805,6 +735,159 @@
                     <span class="font-extrabold text-4xl text-brand-red block mb-4 transform group-hover:translate-x-1 transition-transform">04</span>
                     <h3 class="font-bold text-xl uppercase tracking-wider text-white mb-2" x-text="t('why4Title')"></h3>
                     <p class="text-sm text-brand-muted leading-relaxed font-normal" x-text="t('why4Desc')"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CATALOGUE SECTION -->
+    <section id="catalogue" class="py-28 bg-brand-black text-brand-light border-t border-white/10 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
+            <!-- Part B — Catalogue Description Header -->
+            <div class="mb-16 reveal-up">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="h-[2px] w-8 bg-brand-red"></span>
+                    <span class="text-xs sm:text-sm uppercase tracking-widest text-brand-red font-bold" x-text="t('catHeaderSub')"></span>
+                </div>
+                <h2 class="font-bold text-3xl sm:text-4xl md:text-5xl lg:text-5xl uppercase tracking-normal text-white leading-snug mb-6">
+                    <span x-text="t('catHeaderTitle1')"></span><br>
+                    <span class="text-brand-red" x-text="t('catHeaderTitle2')"></span>
+                </h2>
+                <p class="text-sm sm:text-base text-brand-muted max-w-3xl leading-relaxed" x-text="t('catHeaderDesc')"></p>
+            </div>
+
+            <!-- Part C — Three Catalogue Collections Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 reveal-up items-stretch">
+                <!-- Catalogue 01: COAL -->
+                <div class="bg-brand-dark border border-white/10 p-6 sm:p-8 flex flex-col justify-between group hover:border-brand-red/60 transition-all duration-300">
+                    <div>
+                        <div class="relative w-full aspect-[16/10] overflow-hidden bg-brand-black mb-6 border border-white/10">
+                            <img src="https://cdn.phototourl.com/anon/2026-11-19-bdee2055-226b-438d-b651-0f6dc5ef6591.jpg" alt="Coal Catalogue" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter contrast-125"/>
+                        </div>
+                        <span class="text-xs font-mono text-brand-red tracking-widest uppercase font-bold block mb-2" x-text="t('cat1Sub')"></span>
+                        <h3 class="font-bold text-2xl uppercase tracking-wide text-white mb-4" x-text="t('cat1Title')"></h3>
+                        <p class="text-xs sm:text-sm text-brand-muted leading-relaxed mb-6" x-text="t('cat1Desc')"></p>
+                    </div>
+                    <div class="pt-6 border-t border-white/10">
+                        <a href="assets/catalogues/coal-catalogue.pdf" download="coal-catalogue.pdf" type="application/pdf" class="w-full py-3.5 px-4 bg-brand-red hover:bg-brand-redHover text-white font-bold uppercase tracking-wider text-xs inline-flex items-center justify-center gap-2 transition-all duration-300 shadow-md">
+                            <i data-lucide="download" class="w-4 h-4"></i>
+                            <span x-text="t('catBtnDownload')"></span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Catalogue 02: COFFEE -->
+                <div class="bg-brand-dark border border-white/10 p-6 sm:p-8 flex flex-col justify-between group hover:border-brand-red/60 transition-all duration-300">
+                    <div>
+                        <div class="relative w-full aspect-[16/10] overflow-hidden bg-brand-black mb-6 border border-white/10">
+                            <img src="https://cdn.phototourl.com/anon/2026-11-19-10a4427c-c39a-44e9-a96f-6599264de56d.jpg" alt="Coffee Catalogue" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter contrast-125"/>
+                        </div>
+                        <span class="text-xs font-mono text-brand-red tracking-widest uppercase font-bold block mb-2" x-text="t('cat2Sub')"></span>
+                        <h3 class="font-bold text-2xl uppercase tracking-wide text-white mb-4" x-text="t('cat2Title')"></h3>
+                        <p class="text-xs sm:text-sm text-brand-muted leading-relaxed mb-6" x-text="t('cat2Desc')"></p>
+                    </div>
+                    <div class="pt-6 border-t border-white/10">
+                        <a href="assets/catalogues/coffee-catalogue.pdf" download="coffee-catalogue.pdf" type="application/pdf" class="w-full py-3.5 px-4 bg-brand-red hover:bg-brand-redHover text-white font-bold uppercase tracking-wider text-xs inline-flex items-center justify-center gap-2 transition-all duration-300 shadow-md">
+                            <i data-lucide="download" class="w-4 h-4"></i>
+                            <span x-text="t('catBtnDownload')"></span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Catalogue 02: COFFEE -->
+                <div class="bg-brand-dark border border-white/10 p-6 sm:p-8 flex flex-col justify-between group hover:border-brand-red/60 transition-all duration-300">
+                    <div>
+                        <div class="relative w-full aspect-[16/10] overflow-hidden bg-brand-black mb-6 border border-white/10">
+                            <img src="https://cdn.phototourl.com/anon/2026-11-19-10a4427c-c39a-44e9-a96f-6599264de56d.jpg" alt="Coffee Catalogue" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter contrast-125"/>
+                        </div>
+                        <span class="text-xs font-mono text-brand-red tracking-widest uppercase font-bold block mb-2" x-text="t('cat2Sub')"></span>
+                        <h3 class="font-bold text-2xl uppercase tracking-wide text-white mb-4" x-text="t('cat2Title')"></h3>
+                        <p class="text-xs sm:text-sm text-brand-muted leading-relaxed mb-6" x-text="t('cat2Desc')"></p>
+                    </div>
+                    <div class="pt-6 border-t border-white/10">
+                        <a href="assets/catalogues/coffee-catalogue.pdf" download="coffee-catalogue.pdf" type="application/pdf" class="w-full py-3.5 px-4 bg-brand-red hover:bg-brand-redHover text-white font-bold uppercase tracking-wider text-xs inline-flex items-center justify-center gap-2 transition-all duration-300 shadow-md">
+                            <i data-lucide="download" class="w-4 h-4"></i>
+                            <span x-text="t('cat2Btn')"></span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Catalogue 03: CONSTRUCTION & PROJECT SOLUTIONS -->
+                <div class="bg-brand-dark border border-white/10 p-6 sm:p-8 flex flex-col justify-between group hover:border-brand-red/60 transition-all duration-300">
+                    <div>
+                        <div class="relative w-full aspect-[16/10] overflow-hidden bg-brand-black mb-6 border border-white/10">
+                            <img src="https://cdn.phototourl.com/anon/2026-11-19-8f94178b-36c5-4b22-a07a-1c24b8118b7d.jpg" alt="Construction & Project Solutions Catalogue" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter contrast-125"/>
+                        </div>
+                        <span class="text-xs font-mono text-brand-red tracking-widest uppercase font-bold block mb-2" x-text="t('cat3Sub')"></span>
+                        <h3 class="font-bold text-2xl uppercase tracking-wide text-white mb-4" x-text="t('cat3Title')"></h3>
+                        <p class="text-xs sm:text-sm text-brand-muted leading-relaxed mb-6" x-text="t('cat3Desc')"></p>
+                    </div>
+                    <div class="pt-6 border-t border-white/10">
+                        <a href="assets/catalogues/construction-project-solutions.pdf" download="construction-project-solutions.pdf" type="application/pdf" class="w-full py-3.5 px-4 bg-brand-red hover:bg-brand-redHover text-white font-bold uppercase tracking-wider text-xs inline-flex items-center justify-center gap-2 transition-all duration-300 shadow-md">
+                            <i data-lucide="download" class="w-4 h-4"></i>
+                            <span x-text="t('catBtnDownload')"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Leadership Section (Struktur Perusahaan) -->
+    <section id="leadership" class="py-28 bg-[#0b0b0b] text-brand-light border-t border-white/10 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
+            <!-- Header Section -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 pb-6 border-b border-white/10 reveal-up">
+                <div>
+                    <span class="font-serif font-bold text-xs sm:text-sm tracking-[0.2em] text-white/60 uppercase block mb-2">PT. DZAKIY MAJU BERSAMA</span>
+                    <h2 class="font-bold text-3xl sm:text-4xl md:text-5xl lg:text-5xl uppercase tracking-normal text-white">
+                        STRUKTUR PERUSAHAAN
+                    </h2>
+                </div>
+            </div>
+
+            <!-- Leadership Grid (3 Columns) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 reveal-up">
+                <!-- Profile 01: Tomy Suryadi (Direktur Utama) -->
+                <div class="bg-brand-dark border border-white/10 p-6 flex flex-col justify-between group hover:border-brand-red/50 transition-all duration-300">
+                    <div>
+                        <div class="relative w-full aspect-[4/5] overflow-hidden bg-brand-black mb-6 border border-white/10">
+                            <img src="https://cdn.phototourl.com/member/2026-10-12-287ebb0f-82c4-4b7d-b384-2cc39b7ae009.jpg" alt="Tomy Suryadi — Direktur Utama" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"/>
+                        </div>
+                        <span class="text-sm sm:text-base font-mono tracking-[0.2em] uppercase text-brand-red font-bold block mb-2">
+                            DIREKTUR UTAMA
+                        </span>
+                        <h3 class="font-bold text-2xl sm:text-3xl uppercase tracking-wide text-white">
+                            Tomy Suryadi
+                        </h3>
+                    </div>
+                </div>
+
+                <!-- Profile 02: Achmad Muchlashon (Direktur) -->
+                <div class="bg-brand-dark border border-white/10 p-6 flex flex-col justify-between group hover:border-brand-red/50 transition-all duration-300">
+                    <div>
+                        <div class="relative w-full aspect-[4/5] overflow-hidden bg-brand-black mb-6 border border-white/10">
+                            <img src="https://cdn.phototourl.com/member/2026-10-12-6cafe1d9-3cf0-4746-980b-a86cf441107c.jpg" alt="Achmad Muchlashon — Direktur" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"/>
+                        </div>
+                        <span class="text-sm sm:text-base font-mono tracking-[0.2em] uppercase text-brand-red font-bold block mb-2">
+                            DIREKTUR
+                        </span>
+                        <h3 class="font-bold text-2xl sm:text-3xl uppercase tracking-wide text-white">
+                            Achmad Muchlashon
+                        </h3>
+                    </div>
+                </div>
+
+                <!-- Profile 03: Noviandita Trisnia Windy (Komisaris) -->
+                <div class="bg-brand-dark border border-white/10 p-8 flex flex-col justify-center group hover:border-brand-red/50 transition-all duration-300 lg:col-span-1 md:col-span-2">
+                    <div>
+                        <span class="text-sm sm:text-base font-mono tracking-[0.2em] uppercase text-brand-red font-bold block mb-3">
+                            KOMISARIS
+                        </span>
+                        <h3 class="font-bold text-2xl sm:text-3xl uppercase tracking-wide text-white">
+                            Noviandita Trisnia Windy
+                        </h3>
+                    </div>
                 </div>
             </div>
         </div>
@@ -915,6 +998,7 @@
                 <a href="#capabilities" class="hover:text-brand-red transition-colors" x-text="t('navCapabilities')"></a>
                 <a href="#ecosystem" class="hover:text-brand-red transition-colors" x-text="t('navEcosystem')"></a>
                 <a href="#business-areas" class="hover:text-brand-red transition-colors" x-text="t('navSectors')"></a>
+                <a href="#catalogue" class="hover:text-brand-red transition-colors" x-text="t('navCatalogue')"></a>
                 <a href="#leadership" class="hover:text-brand-red transition-colors" x-text="t('navLeadership')"></a>
             </nav>
             <div class="font-mono text-[11px]">
@@ -1022,6 +1106,7 @@
                 navCapabilities: "Kapabilitas",
                 navEcosystem: "Ekosistem",
                 navSectors: "Sektor Bisnis",
+                navCatalogue: "Katalog Komoditas",
                 navLeadership: "Struktur",
                 ctaDiscuss: "DISKUSIKAN PROYEK",
                 heroHeadline1: "MENGHUBUNGKAN MODAL.",
@@ -1124,6 +1209,26 @@
                 why4Title: "EKSEKUSI",
                 why4Desc: "Mengubah peluang abstrak menjadi dokumentasi terstruktur, kontrak kerja nyata, dan realisasi proyek.",
 
+                catHeaderSub: "KATALOG KOMODITAS",
+                catHeaderTitle1: "KOLEKSI KATALOG KOMODITAS",
+                catHeaderTitle2: "INFORMASI KOMPREHENSIF & PROYEK.",
+                catHeaderDesc: "Jelajahi koleksi katalog komoditas dan solusi proyek PT. Dzakiy Maju Bersama. Setiap katalog memberikan gambaran umum mengenai produk, layanan, kapabilitas proyek, serta informasi bisnis relevan untuk mendukung kemitraan potensial dan peluang komersial.",
+
+                cat1Sub: "KOLEKSI 01",
+                cat1Title: "COAL (BATU BARA)",
+                cat1Desc: "Penyediaan batu bara dari berbagai wilayah Indonesia untuk memenuhi kebutuhan industri domestik maupun internasional. Pilihan Grade A, B, dan C dengan spesifikasi kualitas, kapasitas pasokan, serta solusi pengiriman yang fleksibel.",
+
+                cat2Sub: "KOLEKSI 02",
+                cat2Title: "KOPI NUSANTARA",
+                cat2Desc: "Menghadirkan kopi pilihan dari sentra unggulan Indonesia: Gayo, Mandailing, Toraja, Ijen, dan Flores. Tersedia Arabika, Robusta, dan House Blend dengan seleksi kualitas serta dukungan pasokan untuk pasar domestik dan ekspor.",
+                cat2Btn: "DOWNLOAD KATALOG KOPI →",
+
+                cat3Sub: "KOLEKSI 03",
+                cat3Title: "CONSTRUCTION & PROJECT SOLUTIONS",
+                cat3Desc: "Jelajahi katalog konstruksi dan solusi proyek kami, menyajikan kapabilitas proyek yang relevan, aktivitas bisnis, peluang pengembangan, dan potensi kerja sama.",
+
+                catBtnDownload: "DOWNLOAD KATALOG",
+
                 finalBadge: "MULAI DISKUSI",
                 finalTitle1: "MARI BANGUN",
                 finalTitle2: "KONEKSI YANG TEPAT.",
@@ -1141,7 +1246,7 @@
                 modalSubtitle: "Kirimkan spesifikasi proyek atau kebutuhan transaksi Anda untuk terhubung langsung via email dengan tim manajemen kami.",
                 fieldCategory: "Kategori Inquiry",
                 optFinancing: "Penasihat Pembiayaan Proyek",
-                optCommodity: "Perdagangan / Offtake Komoditas (Batu Bara, Pasir, Bauksit)",
+                optCommodity: "Perdagangan / Offtake Komoditas (Batu Bara, Kopi, Bauksit)",
                 optInvestor: "Kemitraan Investor Strategis / Penyedia Modal",
                 optGeneral: "Koneksi Bisnis Umum",
                 fieldName: "Nama Lengkap *",
@@ -1165,6 +1270,7 @@
                 navCapabilities: "Capabilities",
                 navEcosystem: "Ecosystem",
                 navSectors: "Sectors",
+                navCatalogue: "Commodity Catalogue",
                 navLeadership: "Leadership",
                 ctaDiscuss: "DISCUSS A PROJECT",
                 heroHeadline1: "CONNECTING CAPITAL.",
@@ -1267,6 +1373,26 @@
                 why4Title: "EXECUTION",
                 why4Desc: "Moving abstract opportunities into structured documentation, actionable contracts, and real project realization.",
 
+                catHeaderSub: "COMMODITY CATALOGUE",
+                catHeaderTitle1: "OUR COMMODITY CATALOGUE",
+                catHeaderTitle2: "COMPREHENSIVE PRODUCT & PROJECT OVERVIEWS.",
+                catHeaderDesc: "Explore the commodity and project-related catalogue collection of PT. Dzakiy Maju Bersama. Each catalogue provides an overview of our products, services, project capabilities, and relevant business information to support potential partnerships and commercial opportunities.",
+
+                cat1Sub: "COLLECTION 01",
+                cat1Title: "COAL",
+                cat1Desc: "Supply of coal from various Indonesian regions to meet domestic and international industrial needs. Grade A, B, and C options with quality specifications, supply capacity, and flexible shipping solutions.",
+
+                cat2Sub: "COLLECTION 02",
+                cat2Title: "NUSANTARA COFFEE",
+                cat2Desc: "Presenting selected coffee from Indonesia's premier regions: Gayo, Mandailing, Toraja, Ijen, and Flores. Available in Arabica, Robusta, and House Blend with quality selection and supply support for domestic and export markets.",
+                cat2Btn: "DOWNLOAD COFFEE CATALOGUE →",
+
+                cat3Sub: "COLLECTION 03",
+                cat3Title: "CONSTRUCTION & PROJECT SOLUTIONS",
+                cat3Desc: "Explore our construction and project solutions catalogue, presenting relevant project capabilities, business activities, development opportunities, and potential cooperation.",
+
+                catBtnDownload: "DOWNLOAD CATALOGUE",
+
                 finalBadge: "START THE CONVERSATION",
                 finalTitle1: "LET'S BUILD",
                 finalTitle2: "THE RIGHT CONNECTION.",
@@ -1284,7 +1410,7 @@
                 modalSubtitle: "Submit your project specification or transaction requirements to connect instantly via email with our management team.",
                 fieldCategory: "Inquiry Category",
                 optFinancing: "Project Financing Advisory",
-                optCommodity: "Commodity Trading / Offtake (Coal, Sand, Bauxite)",
+                optCommodity: "Commodity Trading / Offtake (Coal, Coffee, Bauxite)",
                 optInvestor: "Strategic Investor / Capital Provider",
                 optGeneral: "General Business Connection",
                 fieldName: "Full Name *",
@@ -1482,3 +1608,4 @@
     </script>
 </body>
 </html>
+```
